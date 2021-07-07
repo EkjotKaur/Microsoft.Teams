@@ -1,9 +1,9 @@
 const axios = require("axios");
 const { mainUrl } = require("./index");
-const conversationUrl = mainUrl + "conversation";
-const messageUrl = mainUrl + "message";
-const teamsUrl = mainUrl + "teams";
-const messageTeamsUrl = mainUrl + "messageTeams";
+const conversationUrl = mainUrl + "api/conversation";
+const messageUrl = mainUrl + "api/message";
+const teamsUrl = mainUrl + "api/teams";
+const messageTeamsUrl = mainUrl + "api/messageTeams";
 
 export const getConversation = (userId) =>
   axios({

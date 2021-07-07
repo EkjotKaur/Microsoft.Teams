@@ -64,6 +64,9 @@ const TeamChat = () => {
   };
 
   const onSubmitHandler = (e) => {
+    if(!newMessage){
+      return;
+    }
     console.log("Sending");
     const message = {
       senderId: state._id,

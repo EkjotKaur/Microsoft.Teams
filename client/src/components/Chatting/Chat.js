@@ -15,7 +15,7 @@ const Chat = () => {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState();
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState();
+  const [newMessage, setNewMessage] = useState(null);
   const socket = useRef(io(mainUrl));
   const scrollRef = useRef();
 
@@ -58,31 +58,35 @@ const Chat = () => {
   };
 
   const onSubmitHandler = (e) => {
-    const message = {
-      senderId: state._id,
-      text: newMessage,
-      conversationId: currentChat._id,
-    };
+    console.log(newMessage);
+    console.log(newMessage === null);
+    if (newMessage) {
+      const message = {
+        senderId: state._id,
+        text: newMessage,
+        conversationId: currentChat._id,
+      };
 
-    const receiver = currentChat.members.find(
-      (memeber) => memeber._id !== state._id
-    );
+      const receiver = currentChat.members.find(
+        (memeber) => memeber._id !== state._id
+      );
 
-    socket.current.emit("sendMessage", {
-      senderId: state._id,
-      receiverId: receiver._id,
-      text: newMessage,
-    });
+      chatApi
+        .newMessage(message)
+        .then((result) => {
+          setMessages([...messages, result.data.data]);
+          setNewMessage(null);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-    chatApi
-      .newMessage(message)
-      .then((result) => {
-        setMessages([...messages, result.data.data]);
-        setNewMessage("");
-      })
-      .catch((err) => {
-        console.log(err);
+      socket.current.emit("sendMessage", {
+        senderId: state._id,
+        receiverId: receiver._id,
+        text: newMessage,
       });
+    }
   };
 
   useEffect(() => {

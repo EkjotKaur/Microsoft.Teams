@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { mainUrl } = require("./index");
-const userUrl = mainUrl + "user";
+const userUrl = mainUrl + "api/user";
 
 export const signup = (credentials) =>
   axios({
