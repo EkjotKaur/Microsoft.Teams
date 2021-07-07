@@ -21,6 +21,8 @@ app.use(
 app.use(express.json());
 app.use(cors());
 
+console.log(process.env.MONGOURI);
+
 // connecting to mongoDB
 mongoose
   .connect(process.env.MONGOURI, {
