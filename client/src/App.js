@@ -5,7 +5,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import CreateRoom from "./components/CreateRoom";
 import Room from "./components/Room";
 import Chat from "./components/Chatting/Chat";
@@ -39,7 +39,7 @@ const Routing = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (user || state) {
       dispatch({ type: "USER", payload: user });
       setRouters(
         <React.Fragment>
@@ -60,13 +60,14 @@ const Routing = () => {
             <Route path="/teams/:teamId">
               <TeamsChat />
             </Route>
+            <Redirect to="/teams" exact />
           </Switch>
         </React.Fragment>
       );
     } else {
       setRouters(initial);
     }
-  }, [dispatch]);
+  }, [state]);
   return routers;
 };
 

@@ -56,7 +56,7 @@ const Signup = (props) => {
         if (result.status == false) console.log(result.message);
         else {
           console.log(result.data);
-          history.push("/");
+          history.push("/login");
         }
       })
       .catch((err) => {

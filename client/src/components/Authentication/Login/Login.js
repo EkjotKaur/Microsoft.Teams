@@ -52,7 +52,7 @@ const Login = (props) => {
         localStorage.setItem("jwt", res.data.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.data));
         dispatch({ type: "USER", payload: res.data.data });
-        history.push("/chat");
+        // history.push("/chat");
       }
     } catch (err) {
       console.log(err);
