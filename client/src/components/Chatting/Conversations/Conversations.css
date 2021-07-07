@@ -1,0 +1,23 @@
+.conversation {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.conversation:hover {
+  background-color: rgb(59, 59, 59);
+}
+.conversationImg {
+  border-radius: 50%;
+  /* padding: 8px 10px; */
+  /* border: 1px solid #180; */
+  margin-right: 10px;
+  background-color: #981;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+

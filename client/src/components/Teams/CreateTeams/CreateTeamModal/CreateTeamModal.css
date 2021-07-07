@@ -1,0 +1,82 @@
+.createTeamsModalBtn {
+  background-color: #7f81e1 !important;
+  outline: none;
+  border-color: #7f81e1 !important;
+  color: #fff;
+  padding: 7px 25px !important;
+  font-weight: 700 !important;
+  border-radius: 3px !important;
+}
+.createTeamsModalBtn:hover {
+  background-color: #5a5de7 !important;
+  border-color: #5a5de7 !important;
+}
+.createTeamsModalBtn:focus {
+  box-shadow: none !important;
+}
+
+.modal-backdrop {
+  background-color: #333 !important;
+}
+.modalCreateTeamsBody {
+  background-color: #252525;
+  color: #fff;
+  box-shadow: 0px 7px 20px 3px #161616;
+  border: none !important;
+}
+.modalCreateTeamsBody {
+  display: flex;
+  flex-direction: column;
+  padding: 30px !important;
+}
+.modalCreateTeamsBodyHeading {
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+.modalCreateTeamsBodyPara {
+  font-size: 15px;
+  padding-bottom: 25px;
+}
+.inputCreateTeamLabel {
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+.inputCreateTeam {
+  background-color: inherit;
+  outline: none;
+  border: none;
+  width: 100%;
+  margin-bottom: 20px;
+  color: #fff;
+  padding: 7px 10px;
+}
+.inputCreateTeam:focus {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #7f81e1 !important;
+}
+.modalCreateTeamsBodyBtns {
+  display: flex;
+  justify-content: flex-end;
+}
+.modalCreateTeamsBodyCancelBtn {
+  border: 1px solid #aaa !important;
+  background-color: #222 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  padding: 5px 20px !important;
+  border-radius: 2px !important;
+}
+.modalCreateTeamsBodyCancelBtn:focus {
+  box-shadow: none !important;
+}
+.modalCreateTeamsBodySubmit {
+  border: 1px solid #7f81e1 !important;
+  background-color: #7f81e1 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  padding: 5px 20px !important;
+  margin-left: 10px;
+  border-radius: 2px !important;
+}

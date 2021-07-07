@@ -1,0 +1,40 @@
+.teams {
+  margin-left: 65px;
+  /* min-height: calc(100vh - 50px); */
+  top: 50px;
+  min-height: 100vh;
+  background-color: #1f1f1f;
+  color: #fff;
+  padding-top: 50px;
+}
+.teamsList {
+  display: flex;
+  padding: 20px;
+  /* justify-content: space-evenly; */
+}
+.teamsDisplay {
+  display: flex;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+.teamsNav {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 30px 0;
+  flex-wrap: wrap;
+  margin: 1.2% 0;
+}
+.teamsOnTeams{
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.joinORCreateTeamsBTN {
+  border: 1px solid #aaa;
+  background: #161616;
+  cursor: pointer;
+  /* width: fit-content; */
+  padding: 5px 20px;
+  font-size: 14px;
+  box-shadow: 0px 0px 3px 1px #161616;
+  /* margin-right: 1.2%; */
+}

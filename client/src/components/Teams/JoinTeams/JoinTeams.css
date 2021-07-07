@@ -1,0 +1,15 @@
+.JoinTeams {
+  background-color: inherit;
+  outline: none;
+  border: none;
+  width: 220px;
+  padding: 10px;
+  color: #eee;
+}
+.JoinTeams:hover {
+  background-color: #1f1f1f;
+}
+.JoinTeams:focus {
+  border-bottom: 2px solid #7f81e1;
+  background-color: #1f1f1f;
+}

@@ -1,0 +1,42 @@
+.createTeams {
+  background-color: #333;
+  color: #fff;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* padding: 30px 0; */
+  margin: 10px;
+}
+.createTeamsProfile {
+  width: 60px;
+  height: 60px;
+  background-color: silver;
+}
+.createTeamsHeading {
+  font-size: 20px;
+  font-weight: 500;
+}
+.createTeamsBtn {
+  background-color: #7f81e1 !important;
+  outline: none;
+  border: none !important;
+  color: #fff;
+  padding: 7px 25px !important;
+  font-weight: 700 !important;
+  /* font-size: 16px; */
+}
+.createTeamsBtn:hover {
+  background-color: #5a5de7 !important;
+  border-color: #5a5de7 !important;
+}
+.createTeamsBtn:focus {
+  box-shadow: none !important;
+}
+
+.createTeamsProfileImg {
+  width: 35px;
+  margin: 2px 5px;
+}

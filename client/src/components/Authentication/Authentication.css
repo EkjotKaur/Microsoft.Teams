@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.auth {
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.authTeamsHeading {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: rgb(80, 83, 160);
+  text-align: center;
+  font-size: 35px;
+}
+
+.authCard {
+  width: 400px;
+  min-height: 330px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%) !important;
+}
+.emailDetail {
+  padding-top: 20px;
+}
+.detailsHeading {
+  font-size: 25px;
+  font-weight: 500;
+  color: #444;
+  padding: 20px 0;
+}
+.detailsDesc {
+  padding-bottom: 20px;
+}
+
+.authInput {
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.authBtn {
+  background-color: #0067b8;
+  padding: 9px 50px;
+  font-size: 14px;
+  float: right;
+  color: #fff;
+  margin-top: 40px;
+}
+.authRadio {
+  display: flex;
+}
+.radioBtn {
+  margin-right: 10px;
+}
+.optionHeading {
+  font-weight: 500;
+  font-size: 18px;
+}
+.optionDesc {
+  padding-bottom: 20px;
+}

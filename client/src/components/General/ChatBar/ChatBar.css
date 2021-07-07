@@ -1,0 +1,52 @@
+.ChatBar {
+  border-bottom: 1px solid #000;
+  padding: 9px 20px;
+  /* height: 46px; */
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+  /* height: 80px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-top: 50px; */
+  /* top: 50px; */
+}
+.ChatBarName {
+  display: flex;
+  align-items: center;
+}
+.ChatBarNameImg {
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #6d6fd8;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #fff;
+}
+.ChatBarNameImgTeams {
+  border-radius: 2px;
+  margin-right: 10px;
+  background-color: #6d6fd8;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 400;
+}
+.CharBarRight {
+  display: flex;
+  align-items: center;
+}
+.CharBarVideoCalling {
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+}

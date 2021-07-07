@@ -1,0 +1,38 @@
+.sideNavbar {
+  height: 100vh;
+  width: 65px;
+  background-color: #0a0a0a;
+  position: fixed;
+  /* margin-right: 60px; */
+  color: #eee;
+  text-align: center;
+  top: 50px;
+}
+.sideNavbar div {
+  padding-top: 5px;
+}
+.sideNavlink {
+  font-size: 10px;
+  padding: 10px;
+  /* border-left: 4px solid #7f81e1; */
+}
+.activeLink {
+  border-left: 2px solid #7f81e1;
+}
+.sideNavlink .activeSideNavLink {
+  color: #7f81e1;
+  font-weight: 500;
+  border-left: 2px solid #7f81e1;
+}
+.hoverSideBarIcon {
+  width: 0;
+  height: 0;
+}
+.currentSideBarIcon:hover {
+  /* display: none; */
+  color: #7f81e1;
+}
+.hoverSideBarIcon:hover {
+  width: 20px;
+  height: 20px;
+}

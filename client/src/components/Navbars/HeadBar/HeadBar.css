@@ -1,0 +1,50 @@
+.headBar {
+  display: flex;
+  position: fixed;
+  background-color: rgb(10, 10, 10);
+  height: 50px;
+  width: 100%;
+  color: #fff;
+  /* margin-bottom: 50px; */
+  top: 0;
+}
+.headBarBox {
+  width: 65px;
+  text-align: center;
+  padding: 10px 0;
+}
+.headBarBox:hover {
+  background-color: #7f81e1;
+}
+.dots {
+  line-height: 7px;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+}
+.headSubBarBox {
+  display: flex;
+  width: calc(100% - 65px);
+  align-items: center;
+}
+.headBarTeamsHeading {
+  flex: 3;
+}
+.headBarMSTeams {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.headBarSearch {
+  flex: 9;
+}
+.headerBarSearchInput {
+  width: 65%;
+  /* height: 25px; */
+  background-color: #1f1f1f;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
