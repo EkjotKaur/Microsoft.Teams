@@ -26,7 +26,7 @@ const StyledVideo = styled.video``;
 const Video = (props) => {
   const ref = useRef();
   const [constraints, setConstraints] = useState(props.constraints);
-  console.log(props);
+  // console.log(props);
 
   useEffect(() => {
     props.peer.on("stream", (stream) => {
@@ -37,7 +37,29 @@ const Video = (props) => {
     setConstraints(props.constraints);
   }, [props]);
 
-  console.log(constraints);
+  // console.log(constraints);
+  useEffect(() => {
+    setConstraints(props.constraints);
+  }, [props.constraints]);
+
+  // useEffect(() => {
+  // console.log(props.peer);
+  // const isVideoOn = useCallback(() => {
+  //   if (props.peer._remoteTracks) {
+  //     console.log(props.peer._remoteTracks);
+  //     const videoTrack = props.peer._remoteTracks.find(
+  //       (track) => track.track.kind === "video"
+  //     );
+
+  //     if (videoTrack) {
+  //       console.log(videoTrack.track);
+  //       console.log(videoTrack.stream.getVideoTracks()[0]);
+  //       return videoTrack.track.enabled;
+  //     } else return true;
+  //   }
+  //   return true;
+  //   // return true;
+  // }, [props.peer]);
 
   return (
     <>
@@ -46,11 +68,11 @@ const Video = (props) => {
         playsInline
         autoPlay
         ref={ref}
-        className={`peerVideo${constraints.video} ${props.classNameType}`}
+        className={`peerVideo${props.constraints.video} ${props.classNameType}`}
         // className="peerVideo"
       />
       <div
-        className={`videoOff-${!constraints.video} ${
+        className={`videoOff-${!props.constraints.video} ${
           props.videoOffclassNameType
         }`}
       >
@@ -76,10 +98,10 @@ const Room = (props) => {
   const [constraints, setConstraints] = useState({ video: true, audio: true });
   const [enter, setEnter] = useState(0);
 
-  console.log(peers);
-  console.log(peersRef);
+  // console.log(peers);
+  // console.log(peersRef);
 
-  console.log(socketRef);
+  // console.log(socketRef);
 
   const createPeer = (userToSignal, callerID, constraints, stream) => {
     const peer = new Peer({
@@ -94,7 +116,7 @@ const Room = (props) => {
         callerID,
         constraints,
         signal,
-        name: state._id,
+        name: state.name,
       });
     });
 
@@ -113,7 +135,7 @@ const Room = (props) => {
         signal,
         callerID,
         constraints,
-        name: state._id,
+        name: state.name,
       });
     });
 
@@ -122,12 +144,35 @@ const Room = (props) => {
     return peer;
   };
 
+  const addPeersHandler = useCallback((peerObj) => {
+    // console.log(peerObj);
+    // const foundPeer = peers.find((p) => p.peerID == peerObj.peerID);
+    // console.log("YES");
+    const prev = peers.filter((p) => p.peerID != peerObj.peerID);
+    setPeers((users) => [...prev, peerObj]);
+  }, []);
+
+  const joinPerrHandler = useCallback((newPeers) => {
+    console.log(newPeers);
+
+    setPeers(newPeers);
+  }, []);
+  const onVideoHandler = useCallback((payload) => {
+    const peerObj = peersRef.current.find((p) => p.peerID == payload.id);
+    if (peerObj) peerObj.constraints = payload.constraints;
+
+    const prev = peers.filter((p) => p.peerID != payload.id);
+    setPeers((users) => [...prev, peerObj]);
+  }, []);
+
   useEffect(() => {
     // socketRef.current = io.connect("http://localhost:5000");
+    console.log("USEeffect");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setEnter(1);
+        console.log(stream);
         console.log(stream.getVideoTracks());
         console.log(stream.getVideoTracks()[0]);
         userVideo.current.srcObject = stream;
@@ -160,7 +205,8 @@ const Room = (props) => {
               name: user.name,
             });
           });
-          setPeers((prev) => peers);
+          // setPeers((prev) => peers);
+          joinPerrHandler(peers);
         });
 
         socketRef.current.on("user joined", (payload) => {
@@ -177,17 +223,26 @@ const Room = (props) => {
           peersRef.current.push({
             peerID: payload.callerID,
             peer,
-            constraints: payload.constraints,
+            constraints: { video: true, audio: true },
             name: payload.name,
           });
 
           const peerObj = {
             peerID: payload.callerID,
             peer,
-            constraints: payload.constraints,
+            constraints: { video: true, audio: true },
+            name: payload.name,
           };
 
-          setPeers((users) => [...users, peerObj]);
+          // setPeers((users) => [...users, peerObj]);
+          addPeersHandler(peerObj);
+          // socketRef.current.emit("videoOff", {
+          //   id: payload.callerID,
+          //   roomID,
+          //   constraints: {
+          //     video: !constraints.video,
+          //     audio: constraints.audio,
+          //   },
           // setPeers(peersRef.current);
 
           // stream.getVideoTracks()[0].enabled = constraints.video;
@@ -204,7 +259,7 @@ const Room = (props) => {
           item.peer.signal(payload.signal);
         });
 
-        console.log(stream);
+        // console.log(stream);
 
         socketRef.current.on("user videoOff", (payload) => {
           // let item = peers.find((p) => p.peerID === payload.id);
@@ -213,20 +268,10 @@ const Room = (props) => {
               p.constraints = payload.user.constraints;
             }
           });
-          // setPeers((prev) => {
-          //   prev.forEach((p) => {
-          //     if (p.peerID === payload.id) {
-          //       p.constraints = payload.user.constraints;
-          //     }
-          //   });
-          //   return prev;
-          // });
-          // item.constraints = payload.constraints;
-          // const peerNew = peers.map((p) => {
-          //   if (p.peerID === payload.id) p.constraints = payload.constraints;
-          //   return p;
-          // });
-          setPeers(peersRef.current);
+
+          // joinPerrHandler(peersRef.current);
+          // joinPerrHandler(peersRef.current);
+          onVideoHandler(payload);
           // if(peerObj){
           //   peerObj.constraints = payload.user.constraints;
           // }
@@ -239,7 +284,8 @@ const Room = (props) => {
           }
           const peers = peersRef.current.filter((p) => p.peerID !== id);
           peersRef.current = peers;
-          setPeers(peers);
+          // setPeers(peers);
+          joinPerrHandler(peers);
         });
       })
       .catch((err) => {
@@ -247,7 +293,9 @@ const Room = (props) => {
         setEnter(-1);
       });
     setEnter();
-  }, [roomID]);
+  }, []);
+
+  console.log(peers);
 
   const leaveMeeting = () => {
     socketRef.current.disconnect();
@@ -262,7 +310,7 @@ const Room = (props) => {
     // console.log(userVideo.current.srcObject.getVideoTracks()[0]);
     userVideo.current.srcObject.getVideoTracks()[0].enabled =
       !constraints.video;
-    console.log(userVideo.current.srcObject.getVideoTracks()[0]);
+    // console.log(userVideo.current.srcObject.getVideoTracks()[0]);
     socketRef.current.emit("videoOff", {
       id: socketRef.current.id,
       roomID,
@@ -278,12 +326,12 @@ const Room = (props) => {
     // console.log(userVideo.current.srcObject.getVideoTracks()[0]);
     userVideo.current.srcObject.getAudioTracks()[0].enabled =
       !constraints.audio;
-    console.log(userVideo.current.srcObject.getAudioTracks()[0]);
+    // console.log(userVideo.current.srcObject.getAudioTracks()[0]);
 
     setConstraints((prev) => ({ ...prev, audio: !prev.audio }));
   };
 
-  console.log(peers);
+  // console.log(peers);
 
   return (
     <div>
@@ -340,10 +388,6 @@ const Room = (props) => {
                       classNameType={`videoFor${peers.length + 1}`}
                       videoOffclassNameType={`videoOffFor${peers.length + 1}`}
                     />
-                    {/* // <div>HELLLO</div> */}
-                    <div>{"peerVideo" + peer.constraints.video}</div>
-                    <div>{"videoOff-" + !peer.constraints.video}</div>
-                    <div>{peer.constraints.video}</div>
                   </>
                 );
               })}
