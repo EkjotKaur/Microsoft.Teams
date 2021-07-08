@@ -13,8 +13,8 @@ const Details = (props) => {
 
       {props.type === "radio" ? (
         <div>
-          {props.options.map((option) => (
-            <div className="authRadio">
+          {props.options.map((option, i) => (
+            <div className="authRadio" key={i}>
               <input
                 name={props.name}
                 onChange={(e) => {

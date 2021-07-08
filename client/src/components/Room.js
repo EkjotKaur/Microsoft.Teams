@@ -74,64 +74,60 @@ const Room = (props) => {
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
   const [constraints, setConstraints] = useState({ video: true, audio: true });
+  const [enter, setEnter] = useState(0);
 
   console.log(peers);
   console.log(peersRef);
 
   console.log(socketRef);
 
-  const createPeer = useCallback(
-    (userToSignal, callerID, constraints, stream) => {
-      const peer = new Peer({
-        initiator: true,
-        trickle: false,
-        stream,
+  const createPeer = (userToSignal, callerID, constraints, stream) => {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream,
+    });
+
+    peer.on("signal", (signal) => {
+      socketRef.current.emit("sending signal", {
+        userToSignal,
+        callerID,
+        constraints,
+        signal,
+        name: state._id,
       });
+    });
 
-      peer.on("signal", (signal) => {
-        socketRef.current.emit("sending signal", {
-          userToSignal,
-          callerID,
-          constraints,
-          signal,
-          name: state._id,
-        });
+    return peer;
+  };
+
+  const addPeer = (incomingSignal, callerID, constraints, stream) => {
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream,
+    });
+
+    peer.on("signal", (signal) => {
+      socketRef.current.emit("returning signal", {
+        signal,
+        callerID,
+        constraints,
+        name: state._id,
       });
+    });
 
-      return peer;
-    },
-    [state._id]
-  );
+    peer.signal(incomingSignal);
 
-  const addPeer = useCallback(
-    (incomingSignal, callerID, constraints, stream) => {
-      const peer = new Peer({
-        initiator: false,
-        trickle: false,
-        stream,
-      });
-
-      peer.on("signal", (signal) => {
-        socketRef.current.emit("returning signal", {
-          signal,
-          callerID,
-          constraints,
-          name: state._id,
-        });
-      });
-
-      peer.signal(incomingSignal);
-
-      return peer;
-    },
-    [state._id]
-  );
+    return peer;
+  };
 
   useEffect(() => {
     // socketRef.current = io.connect("http://localhost:5000");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
+        setEnter(1);
         console.log(stream.getVideoTracks());
         console.log(stream.getVideoTracks()[0]);
         userVideo.current.srcObject = stream;
@@ -248,7 +244,9 @@ const Room = (props) => {
       })
       .catch((err) => {
         console.log(err.name + " " + err.message);
+        setEnter(-1);
       });
+    setEnter();
   }, [roomID]);
 
   const leaveMeeting = () => {
@@ -288,63 +286,74 @@ const Room = (props) => {
   console.log(peers);
 
   return (
-    <div className="videoCalling">
-      <div className="headVideoPanel">
-        <div className="controlVideo" onClick={toggleAudio}>
-          <img src={constraints.audio ? Mute : Unmute} alt="mute" />
-        </div>
-        <div className="controlVideo" onClick={toggleVideo}>
-          <img src={constraints.video ? VideoOn : VideoOff} alt="video off" />
-        </div>
-        <div className="controlVideo " onClick={leaveMeeting}>
-          <div className="leave">
-            <img src={Leave} alt="video off" /> Leave
+    <div>
+      {enter === 1 && (
+        <div className="videoCalling">
+          <div className="headVideoPanel">
+            <div className="controlVideo" onClick={toggleAudio}>
+              <img src={constraints.audio ? Mute : Unmute} alt="mute" />
+            </div>
+            <div className="controlVideo" onClick={toggleVideo}>
+              <img
+                src={constraints.video ? VideoOn : VideoOff}
+                alt="video off"
+              />
+            </div>
+            <div className="controlVideo " onClick={leaveMeeting}>
+              <div className="leave">
+                <img src={Leave} alt="video off" /> Leave
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="videos">
-        <>
-          <StyledVideo
-            muted
-            ref={userVideo}
-            autoPlay
-            playsInline
-            className={`userVideo${constraints.video} videoFor${
-              peers.length + 1
-            }`}
-          />
-          <div
-            className={`videoOff-${!constraints.video} videoOffFor${
-              peers.length + 1
-            }`}
-          >
-            {!constraints.video && <div className="videoOffName">EK</div>}
-          </div>
-        </>
+          <div className="videos">
+            <>
+              <StyledVideo
+                muted
+                ref={userVideo}
+                autoPlay
+                playsInline
+                className={`userVideo${constraints.video} videoFor${
+                  peers.length + 1
+                }`}
+              />
+              <div
+                className={`videoOff-${!constraints.video} videoOffFor${
+                  peers.length + 1
+                }`}
+              >
+                {!constraints.video && <div className="videoOffName">EK</div>}
+              </div>
+            </>
 
-        {peers &&
-          peers.map((peer) => {
-            return (
-              <>
-                {" "}
-                <Video
-                  key={peer.peerID}
-                  peer={peer.peer}
-                  constraints={peer.constraints}
-                  peerData={peer}
-                  peerClassVideo={`peerVideo${peer.constraints.video}`}
-                  peerClassVideoOff={`videoOff-${!peer.constraints.video}`}
-                  classNameType={`videoFor${peers.length + 1}`}
-                  videoOffclassNameType={`videoOffFor${peers.length + 1}`}
-                />
-                {/* // <div>HELLLO</div> */}
-                <div>{"peerVideo" + peer.constraints.video}</div>
-                <div>{"videoOff-" + !peer.constraints.video}</div>
-                <div>{peer.constraints.video}</div>
-              </>
-            );
-          })}
-      </div>
+            {peers &&
+              peers.map((peer) => {
+                return (
+                  <>
+                    {" "}
+                    <Video
+                      key={peer.peerID}
+                      peer={peer.peer}
+                      constraints={peer.constraints}
+                      peerData={peer}
+                      peerClassVideo={`peerVideo${peer.constraints.video}`}
+                      peerClassVideoOff={`videoOff-${!peer.constraints.video}`}
+                      classNameType={`videoFor${peers.length + 1}`}
+                      videoOffclassNameType={`videoOffFor${peers.length + 1}`}
+                    />
+                    {/* // <div>HELLLO</div> */}
+                    <div>{"peerVideo" + peer.constraints.video}</div>
+                    <div>{"videoOff-" + !peer.constraints.video}</div>
+                    <div>{peer.constraints.video}</div>
+                  </>
+                );
+              })}
+          </div>
+        </div>
+      )}
+      {enter === 0 && (
+        <h1 className="videoCalling">LOADINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</h1>
+      )}
+      {enter === -1 && <h1 className="videoCalling">CANNOT CONNECT</h1>}
     </div>
   );
 };

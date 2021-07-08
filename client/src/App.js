@@ -5,7 +5,13 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { BrowserRouter, Redirect, Route, Switch, useHistory } from "react-router-dom";
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import CreateRoom from "./components/CreateRoom";
 import Room from "./components/Room";
 import Chat from "./components/Chatting/Chat";
@@ -36,39 +42,63 @@ const Routing = () => {
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
   const [routers, setRouters] = useState(initial);
+  const [user, setUser] = useState();
 
+  // useEffect(() => {
+  //   if (!user) {
+  //     setUser(state);
+  //   } else if (user && !state) {
+  //     setUser(null);
+  //   }
+  // }, [state]);
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user || state) {
-      dispatch({ type: "USER", payload: user });
-      setRouters(
-        <React.Fragment>
-          <HeadBar />
-          <SideNavbar />
-          <Switch>
-            <Route path="/" exact component={CreateRoom} />
-            <Route path="/room/:roomID" component={Room} />
-            <Route path="/chat">
-              <Chat />
-            </Route>
-            <Route path="/teams" exact>
-              <Teams />
-            </Route>
-            <Route path="/createTeams">
-              <CreateTeamsPage />
-            </Route>
-            <Route path="/teams/:teamId">
-              <TeamsChat />
-            </Route>
-            <Redirect to="/teams" exact />
-          </Switch>
-        </React.Fragment>
-      );
-    } else {
-      setRouters(initial);
-    }
-  }, [state]);
-  return routers;
+    const userTemp = JSON.parse(localStorage.getItem("user"));
+    setUser(userTemp);
+    if (userTemp) dispatch({ type: "USER", payload: userTemp });
+    // log
+  }, []);
+  return (
+    <React.Fragment>
+      {(state || user) && <HeadBar />}
+      {(state || user) && <SideNavbar />}
+      <Switch>
+        {(state || user) && <Route path="/" exact component={CreateRoom} />}
+        {(state || user) && <Route path="/room/:roomID" component={Room} />}
+        {(state || user) && (
+          <Route path="/chat">
+            <Chat />
+          </Route>
+        )}
+        {(state || user) && (
+          <Route path="/teams" exact>
+            <Teams />
+          </Route>
+        )}
+        {(state || user) && (
+          <Route path="/createTeams">
+            <CreateTeamsPage />
+          </Route>
+        )}
+        {(state || user) && (
+          <Route path="/teams/:teamId">
+            <TeamsChat />
+          </Route>
+        )}
+        {!state && !user && (
+          <Route path="/signup">
+            <Signup />
+          </Route>
+        )}
+        {!state && !user && (
+          <Route path="/login">
+            <Login />
+          </Route>
+        )}
+        {(state || user) && <Redirect to="/teams" exact />}
+        {<Redirect to="/login" exact />}
+      </Switch>
+    </React.Fragment>
+  );
 };
 
 function App() {

@@ -32,16 +32,19 @@ const Teams = (props) => {
       }
     };
     fetchData();
-  }, [state._id, setTeams, newTeams]);
+  }, [state, setTeams, newTeams]);
 
   return (
     <div className="teams">
       <div className="teamsNav">
         <div className="teamsOnTeams">Teams</div>
         {/* <div> */}
-          <div className="joinORCreateTeamsBTN" onClick={() => history.push("/createTeams")}>
-            Join or Create Team
-          </div>
+        <div
+          className="joinORCreateTeamsBTN"
+          onClick={() => history.push("/createTeams")}
+        >
+          Join or Create Team
+        </div>
         {/* </div> */}
       </div>
       {!teams || teams.length === 0 ? (
@@ -51,8 +54,8 @@ const Teams = (props) => {
         </div>
       ) : (
         <div className="teamsDisplay">
-          {teams.map((team) => (
-            <TeamsBox team={team} />
+          {teams.map((team, id) => (
+            <TeamsBox team={team} key={id} />
           ))}
         </div>
       )}
