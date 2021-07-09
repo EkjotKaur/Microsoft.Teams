@@ -18,8 +18,8 @@
   font-size: 14px;
   color: #fff;
 }
-.messageBox{
-  max-width: 75%;
+.messageBox {
+  max-width: 70%;
   font-size: 14px;
   background-color: #303030;
   border-radius: 4px;
@@ -34,15 +34,37 @@
   background-color: #323348;
   color: #fff;
 }
-.otherNameMessage{
+.otherNameMessage {
   font-size: 12px;
   font-weight: 700;
 }
-.messageTime{
+.messageTime {
   font-size: 12px;
   font-weight: 300;
   padding-left: 6px;
 }
-.own .messageTime{
+.own .messageTime {
   padding-left: 0;
+}
+
+@media only screen and (max-width: 1050px) {
+  .messageBox {
+    max-width: 60%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .message.own {
+    padding: 10px 60px 10px 0px;
+  }
+  .message {
+    padding: 10px 0 10px 10px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .message{
+    padding: 10px 0 10px 20px;
+  }
+  .message.own{
+    padding: 10px 20px 10px;
+  }
 }

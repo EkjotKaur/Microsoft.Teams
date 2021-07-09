@@ -48,7 +48,54 @@
 }
 .CharBarVideoCalling {
   padding-top: 10px;
-
   display: flex;
   align-items: center;
+}
+.codeBtn {
+  margin-left: 10px;
+  background: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.dropdownBody .codeBody {
+  width: 350px;
+  right: auto !important;
+  top: 70px !important;
+}
+.teamCode {
+  font-size: 14px;
+  padding: 10px;
+  font-weight: 400;
+}
+.leftArrow {
+  font-size: 3rem;
+  line-height: 30px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  /* align-self: center; */
+  padding-bottom: 10px;
+  color: #aaa;
+}
+.leftArrow:hover {
+  color: #fff;
+}
+
+@media only screen and (max-width: 900px) {
+  .ChatBar {
+    position: fixed;
+    width: calc(100% - 65px);
+  }
+}
+@media only screen and (max-width: 470px) {
+  .CharBarRight{
+    padding-right: 0
+  }
+  .ChatBar{
+    font-size: 16px;
+  }
+  .ChatBarNameImg{
+    width: 35px;
+    height: 35px;
+  }
 }

@@ -12,7 +12,7 @@ const HeadBar = (props) => {
   const history = useHistory();
   console.log(search);
 
-  const clearResultHandler = () => setSearch()
+  const clearResultHandler = () => setSearch();
 
   return (
     <div className="headBar">
@@ -22,9 +22,11 @@ const HeadBar = (props) => {
         <div className="dots">. . .</div>
       </div>
       <div className="headSubBarBox">
-        <div className="headBarTeamsHeading">
-          <div className="headBarMSTeams">Microsoft Teams</div>
-        </div>
+        {window.innerWidth > 862 && (
+          <div className="headBarTeamsHeading">
+            <div className="headBarMSTeams">Microsoft Teams</div>
+          </div>
+        )}
         <div className="headBarSearch">
           <input
             type="text"
@@ -33,7 +35,12 @@ const HeadBar = (props) => {
             onChange={(e) => setSearch(e.target.value)}
             value={search}
           />
-          {search && <SearchResults search={search} onClearHandler={clearResultHandler} />}
+          {search && (
+            <SearchResults
+              search={search}
+              onClearHandler={clearResultHandler}
+            />
+          )}
         </div>
         {state && (
           <div className="headerBarProfile">

@@ -112,3 +112,14 @@
   color: #ddd;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 862px) {
+  .headerBarSearchInput{
+    width: 75%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .headerBarSearchInput{
+    width: 90%;
+  }
+}

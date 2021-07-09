@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ChatBar.css";
 import VideoCameraImg from "../../../assets/images/Chat/video-camera.png";
 import { useHistory } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
 
 // import
 
@@ -22,6 +23,8 @@ const ChatBar = (props) => {
   return (
     <div className="ChatBar">
       <div className="ChatBarName">
+        {window.innerWidth <= 900 && <div className="leftArrow" onClick={() => props.onGoBack()}> ‹ </div>}
+
         {(user || props.name) && (
           <div className="ChatBarNameImg">
             {user && user.name.match(/\b(\w)/g).join("")}
@@ -41,6 +44,21 @@ const ChatBar = (props) => {
           {props.team && props.team.name}
           {props.name && props.name}
         </div>
+        {props.team && (
+          <Dropdown>
+            <Dropdown.Toggle
+              className="codeBtn"
+              variant="success"
+              id="dropdown-basic"
+            >
+              ⋮
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className="dropdownBody codeBody">
+              <div className="teamCode">Team Code: {props.team.code}</div>
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
       </div>
       {props.video && (
         <div className="CharBarRight">

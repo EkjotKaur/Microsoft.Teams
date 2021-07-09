@@ -109,17 +109,19 @@ const Chat = () => {
 
   return (
     <div className="chat">
-      <div className="chatMenu">
-        <div className="chatMenuWrapper">
-          <SidebarHeading heading="Chat" />
-          {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
-          {conversations.map((chat) => (
-            <div key={chat._id} onClick={() => setCurrentChat(chat)}>
-              <Conversation conversation={chat} currentUser={state} />
-            </div>
-          ))}
+      {(window.innerWidth > 900 || !currentChat) && (
+        <div className="chatMenu">
+          <div className="chatMenuWrapper">
+            <SidebarHeading heading="Chat" />
+            {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
+            {conversations.map((chat) => (
+              <div key={chat._id} onClick={() => setCurrentChat(chat)}>
+                <Conversation conversation={chat} currentUser={state} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className="chatBox">
         {currentChat ? (
           <div className="chatBoxWrapper">
@@ -127,6 +129,7 @@ const Chat = () => {
               conversation={currentChat}
               currentUser={state}
               video={true}
+              onGoBack={() => setCurrentChat(null)}
             />
             <div className="chatBoxTop">
               {messages.map((message, i) => (

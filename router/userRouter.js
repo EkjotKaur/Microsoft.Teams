@@ -1,9 +1,9 @@
 const { signup, login } = require("../controllers/userController");
 
 const router = require("express").Router();
-const isLoggedIn = require("../middleware/isLoggedIn");
+// const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.post("/signup", isLoggedIn, signup);
-router.post("/login", isLoggedIn, login);
+router.post("/signup", signup);
+router.post("/login", login);
 
 module.exports = router;

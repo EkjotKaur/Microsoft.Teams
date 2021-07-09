@@ -52,7 +52,6 @@
   align-items: center;
   color: #fff;
   border-bottom: 3px solid #303030;
-
 }
 .chatMessageInput:focus {
   outline: none;
@@ -82,4 +81,47 @@
   /* padding: 10px; */
   /* background-color: aqua; */
   height: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .chatBoxBottom {
+    margin: 0 40px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .chat {
+    display: block;
+    background-color: #1f1f1f;
+  }
+  .chatMenu {
+    height: 100vh;
+  }
+  .chatBoxTop {
+    margin-top: 60px;
+  }
+  .chatBoxBottom {
+    position: fixed;
+    bottom: 40px;
+    width: calc(100% - 140px);
+  }
+  .messageSendBtn {
+    position: fixed;
+    bottom: 10px;
+    width: calc(100% - 240px);
+  }
+  .chatBox {
+    /* position: absolute; */
+    height: calc(100% - 111px);
+    top: 50px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .chatBoxBottom {
+    margin: 0 20px;
+    width: calc(100% - 110px);
+  }
+  .chatMessageInput {
+    margin: 15px 0px auto 0px;
+  }
 }
