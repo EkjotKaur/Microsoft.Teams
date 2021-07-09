@@ -1,0 +1,42 @@
+.Contacts {
+  height: 100vh;
+  background-color: #1f1f1f;
+  color: #fff;
+  margin-left: 65px;
+  padding: 70px 20px 20px;
+}
+.contactOnContacts {
+  padding: 10px 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.allContacts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: calc(100vh - 130px);
+}
+.ContactItem {
+  width: 200px;
+  padding: 10px;
+  cursor: pointer;
+}
+.ContactItem:last-child {
+  border-bottom: 0;
+}
+.ContactItem:hover {
+  background-color: #141414;
+}
+.ContactItemName {
+  font-family: "Merriweather", serif;
+  font-size: 15px;
+}
+.ContactItemEmail {
+  color: #bbb;
+  font-size: 14px;
+  font-style: italic;
+}

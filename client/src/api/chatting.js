@@ -108,6 +108,14 @@ export const searchContactFromTeams = (body, id) =>
       "Content-Type": "application/json",
     },
   });
+export const getContactFromTeams = (id) =>
+  axios({
+    method: "GET",
+    url: `${teamsUrl}/contacts/${id}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
 export const searchConversation = (body) =>
   axios({

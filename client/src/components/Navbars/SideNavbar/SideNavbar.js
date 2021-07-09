@@ -6,6 +6,7 @@ import ChatHoverImg from "../../../assets/images/Navbar/chat-hover.png";
 import TeamsImg from "../../../assets/images/Navbar/teams.png";
 import TeamsHoverImg from "../../../assets/images/Navbar/teams-hover.png";
 import FilesImg from "../../../assets/images/Navbar/files.png";
+import FilesHoverImg from "../../../assets/images/Navbar/files-hover.png";
 import { useHistory, useLocation } from "react-router-dom";
 
 const SideNavbar = (props) => {
@@ -16,6 +17,7 @@ const SideNavbar = (props) => {
   useEffect(() => {
     console.log(location.pathname);
     if (location.pathname.includes("/chat")) setActive("Chat");
+    if (location.pathname.includes("/contacts")) setActive("Contacts");
     if (
       location.pathname.includes("/teams") ||
       location.pathname.includes("/createTeams")
@@ -55,11 +57,21 @@ const SideNavbar = (props) => {
           </div>
           <div className={active === "Teams" && "activeSideNavLink"}>Teams</div>
         </div>
-        <div className="sideNavlink">
-          <div>
-            <img src={FilesImg} alt="chat" />
+        <div
+          className="sideNavlink"
+          onClick={(e) => {
+            history.push("/contacts");
+            setActive("Contacts");
+          }}
+        >
+          <div className={active === "Contacts" && "activeLink"}>
+            <img
+              alt="contacts"
+              className="currentSideBarIcon"
+              src={active === "Contacts" ? FilesHoverImg : FilesImg}
+            />
           </div>
-          <div>Files</div>
+          <div className={active === "Contacts" && "activeSideNavLink"}>Contacts</div>
         </div>
       </div>
       <div></div>

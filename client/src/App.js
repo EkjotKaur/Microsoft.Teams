@@ -25,6 +25,7 @@ import HeadBar from "./components/Navbars/HeadBar/HeadBar";
 import { initialState, reducer } from "./reducer/userReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NewChat from "./components/NewChat/NewChat";
+import Contacts from "./components/Contacts/Contacts";
 
 export const UserContext = createContext();
 
@@ -88,6 +89,11 @@ const Routing = () => {
         {(state || user) && (
           <Route path="/newChat/:userId/:userName">
             <NewChat />
+          </Route>
+        )}
+        {(state || user) && (
+          <Route path="/contacts">
+            <Contacts />
           </Route>
         )}
         {!state && !user && (

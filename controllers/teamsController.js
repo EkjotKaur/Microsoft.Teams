@@ -124,6 +124,7 @@ exports.findContactFromTeams = async (req, res) => {
     res.json(err);
   }
 
+  foundUsers = foundUsers.filter((user) => user._id != req.params.userId);
   console.log(foundUsers);
 
   res.status(200).json({ status: true, data: foundUsers });
@@ -161,6 +162,7 @@ exports.searchContactFromTeams = async (req, res) => {
   }
 
   console.log(foundUsers);
+  foundUsers = foundUsers.filter((user) => user._id != req.params.userId);
 
   res.status(200).json({ status: true, data: foundUsers });
 };
