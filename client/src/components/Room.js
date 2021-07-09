@@ -42,50 +42,28 @@ const Video = (props) => {
     setConstraints(props.constraints);
   }, [props.constraints]);
 
-  // useEffect(() => {
-  // console.log(props.peer);
-  // const isVideoOn = useCallback(() => {
-  //   if (props.peer._remoteTracks) {
-  //     console.log(props.peer._remoteTracks);
-  //     const videoTrack = props.peer._remoteTracks.find(
-  //       (track) => track.track.kind === "video"
-  //     );
-
-  //     if (videoTrack) {
-  //       console.log(videoTrack.track);
-  //       console.log(videoTrack.stream.getVideoTracks()[0]);
-  //       return videoTrack.track.enabled;
-  //     } else return true;
-  //   }
-  //   return true;
-  //   // return true;
-  // }, [props.peer]);
-
   return (
     <>
-      {/* {!constraints.video && <div>NO VIDEO PEER</div>} */}
       <StyledVideo
         playsInline
         autoPlay
         ref={ref}
         className={`peerVideo${props.constraints.video} ${props.classNameType}`}
-        // className="peerVideo"
       />
       <div
         className={`videoOff-${!props.constraints.video} ${
           props.videoOffclassNameType
         }`}
       >
-        {!constraints.video && <div className="videoOffName">EK</div>}
+        {!constraints.video && (
+          <div className="videoOffName">
+            {props.name.match(/\b(\w)/g).join("")}
+          </div>
+        )}
       </div>
     </>
   );
 };
-
-// const videoConstraints = {
-//   height: window.innerHeight / 2,
-//   width: window.innerWidth / 2,
-// };
 
 const Room = (props) => {
   const [peers, setPeers] = useState([]);
@@ -145,24 +123,36 @@ const Room = (props) => {
   };
 
   const addPeersHandler = useCallback((peerObj) => {
-    // console.log(peerObj);
-    // const foundPeer = peers.find((p) => p.peerID == peerObj.peerID);
-    // console.log("YES");
-    const prev = peers.filter((p) => p.peerID != peerObj.peerID);
-    setPeers((users) => [...prev, peerObj]);
+    console.log(peerObj);
+    console.log(peers);
+    const newPeers = peers;
+    setPeers((prev) => {
+      const newPeers = prev.filter((p) => p.peerID !== peerObj.peerID);
+      return [...newPeers, peerObj];
+    });
   }, []);
 
-  const joinPerrHandler = useCallback((newPeers) => {
+  const joinPerrHandler = (newPeers) => {
     console.log(newPeers);
 
     setPeers(newPeers);
-  }, []);
+  };
   const onVideoHandler = useCallback((payload) => {
-    const peerObj = peersRef.current.find((p) => p.peerID == payload.id);
-    if (peerObj) peerObj.constraints = payload.constraints;
+    // const peerObj = peersRef.current.find((p) => p.peerID == payload.id);
+    // if (peerObj) peerObj.constraints = payload.constraints;
 
-    const prev = peers.filter((p) => p.peerID != payload.id);
-    setPeers((users) => [...prev, peerObj]);
+    // const prev = peers.filter((p) => p.peerID !== payload.id);
+    console.log(peersRef);
+    setPeers((users) => {
+      console.log(users);
+      const peerObj = users.find((p) => p.peerID === payload.id);
+      console.log(peerObj);
+      if (peerObj) peerObj.constraints = payload.constraints;
+      console.log(peerObj);
+      const prev = users.filter((p) => p.peerID !== payload.id);
+      console.log(prev);
+      return [...prev, peerObj];
+    });
   }, []);
 
   useEffect(() => {
@@ -210,9 +200,6 @@ const Room = (props) => {
         });
 
         socketRef.current.on("user joined", (payload) => {
-          // stream.getVideoTracks()[0].enabled = true;
-          // stream.getAudioTracks()[0].enabled = true;
-          // setState()
           const peer = addPeer(
             payload.signal,
             payload.callerID,
@@ -268,13 +255,26 @@ const Room = (props) => {
               p.constraints = payload.user.constraints;
             }
           });
+          console.log(peersRef);
+
+          setPeers(peersRef.current);
 
           // joinPerrHandler(peersRef.current);
           // joinPerrHandler(peersRef.current);
-          onVideoHandler(payload);
+          // onVideoHandler(payload);
           // if(peerObj){
           //   peerObj.constraints = payload.user.constraints;
           // }
+        });
+
+        socketRef.current.on("user videoOn", (payload) => {
+          peersRef.current.forEach((p) => {
+            if (p.peerID === payload.id) {
+              p.constraints = payload.user.constraints;
+            }
+          });
+          console.log(peersRef);
+          onVideoHandler(payload);
         });
 
         socketRef.current.on("user left", (id) => {
@@ -284,8 +284,19 @@ const Room = (props) => {
           }
           const peers = peersRef.current.filter((p) => p.peerID !== id);
           peersRef.current = peers;
-          // setPeers(peers);
-          joinPerrHandler(peers);
+          setPeers(peersRef.current);
+          // onVideoHandler(peers);
+          // setPeers((prev) => {
+          //   console.log(prev);
+          //   const pObj = prev.find((p) => p.peerID === id);
+          //   console.log(pObj);
+          //   // if (pObj) {
+          //   //   pObj.peer.destroy();
+          //   // }
+          //   const newPeer = prev.filter((p) => p.peerID !== id);
+          //   console.log(newPeer);
+          //   return newPeer;
+          // });
         });
       })
       .catch((err) => {
@@ -296,6 +307,10 @@ const Room = (props) => {
   }, []);
 
   console.log(peers);
+
+  useEffect(() => {
+    setPeers(peersRef.current);
+  }, []);
 
   const leaveMeeting = () => {
     socketRef.current.disconnect();
@@ -369,7 +384,11 @@ const Room = (props) => {
                   peers.length + 1
                 }`}
               >
-                {!constraints.video && <div className="videoOffName">EK</div>}
+                {!constraints.video && (
+                  <div className="videoOffName">
+                    {state.name.match(/\b(\w)/g).join("")}
+                  </div>
+                )}
               </div>
             </>
 
@@ -383,6 +402,7 @@ const Room = (props) => {
                       peer={peer.peer}
                       constraints={peer.constraints}
                       peerData={peer}
+                      name={peer.name}
                       peerClassVideo={`peerVideo${peer.constraints.video}`}
                       peerClassVideoOff={`videoOff-${!peer.constraints.video}`}
                       classNameType={`videoFor${peers.length + 1}`}

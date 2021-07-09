@@ -65,11 +65,19 @@ module.exports = (io) => {
       USER.constraints = payload.constraints;
       console.log(USER);
       console.log(users[payload.roomID]);
-      socket.broadcast.emit("user videoOff", {
-        id: payload.id,
-        user: USER,
-        constraints: payload.constraints,
-      });
+      if (payload.constraints.video === false) {
+        socket.broadcast.emit("user videoOff", {
+          id: payload.id,
+          user: USER,
+          constraints: payload.constraints,
+        });
+      } else {
+        socket.broadcast.emit("user videoOn", {
+          id: payload.id,
+          user: USER,
+          constraints: payload.constraints,
+        });
+      }
     });
 
     socket.on("disconnect", () => {
