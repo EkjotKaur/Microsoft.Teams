@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../../App";
 
 import "./HeadBar.css";
+import SearchResults from "./SearchResults/SearchResult";
 
 const HeadBar = (props) => {
   const { state, dispatch } = useContext(UserContext);
+  const [search, setSearch] = useState("");
   const history = useHistory();
+  console.log(search);
+
+  const clearResultHandler = () => setSearch()
 
   return (
     <div className="headBar">
@@ -25,7 +30,10 @@ const HeadBar = (props) => {
             type="text"
             className="headerBarSearchInput"
             placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
           />
+          {search && <SearchResults search={search} onClearHandler={clearResultHandler} />}
         </div>
         {state && (
           <div className="headerBarProfile">

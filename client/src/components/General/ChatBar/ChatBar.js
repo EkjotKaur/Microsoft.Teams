@@ -22,9 +22,10 @@ const ChatBar = (props) => {
   return (
     <div className="ChatBar">
       <div className="ChatBarName">
-        {user && (
+        {(user || props.name) && (
           <div className="ChatBarNameImg">
-            {user.name.match(/\b(\w)/g).join("")}
+            {user && user.name.match(/\b(\w)/g).join("")}
+            {props.name && props.name.match(/\b(\w)/g).join("")}
           </div>
         )}
         {props.team && (
@@ -38,20 +39,27 @@ const ChatBar = (props) => {
           {" "}
           {user && user.name}
           {props.team && props.team.name}
+          {props.name && props.name}
         </div>
       </div>
-      <div className="CharBarRight">
-        <div
-          className="CharBarVideoCalling"
-          onClick={() => {
-            if (props.conversation)
-              history.push(`/room/${props.conversation._id}`);
-            else history.push(`/room/${props.team._id}`);
-          }}
-        >
-          <img src={VideoCameraImg} alt="video" style={{cursor: "pointer"}} />
+      {props.video && (
+        <div className="CharBarRight">
+          <div
+            className="CharBarVideoCalling"
+            onClick={() => {
+              if (props.conversation)
+                history.push(`/room/${props.conversation._id}`);
+              else history.push(`/room/${props.team._id}`);
+            }}
+          >
+            <img
+              src={VideoCameraImg}
+              alt="video"
+              style={{ cursor: "pointer" }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

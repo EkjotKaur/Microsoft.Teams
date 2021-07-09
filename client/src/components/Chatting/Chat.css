@@ -51,9 +51,12 @@
   display: flex;
   align-items: center;
   color: #fff;
+  border-bottom: 3px solid #303030;
+
 }
 .chatMessageInput:focus {
   outline: none;
+  border-bottom: 3px solid #7375e7;
 }
 .messageSendBtn {
   display: flex;

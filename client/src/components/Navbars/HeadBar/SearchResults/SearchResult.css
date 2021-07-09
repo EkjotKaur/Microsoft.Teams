@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+.SearchResults {
+  background-color: rgb(82, 82, 82);
+  top: 40px;
+  position: absolute;
+  width: 50%;
+  max-height: 50vh;
+  overflow-y: scroll;
+  /* padding: 10px; */
+}
+.SearchUserDetails {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #222;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.SearchUserDetails:last-child {
+  border: none;
+}
+.SearchUserDetailsName {
+  font-size: 14px;
+  padding-right: 10px;
+  font-family: "Merriweather", serif;
+  font-weight: 300;
+}
+.SearchUserDetailsEmail {
+  font-size: 12px;
+  padding-left: 10px;
+  color: #ccc;
+  font-style: italic;
+}

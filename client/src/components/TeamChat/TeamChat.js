@@ -127,7 +127,7 @@ const TeamChat = () => {
       </div>
       <div className="chatBox">
         <div className="chatBoxWrapper">
-          <ChatBar team={team} currentUser={state} />
+          <ChatBar team={team} currentUser={state} video={true} />
           <div className="chatBoxTop">
             {messages.map((message, i) => (
               <div key={message._id ? message._id : i} ref={scrollRef}>

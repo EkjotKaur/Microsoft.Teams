@@ -96,24 +96,71 @@ exports.getTeamById = (req, res) => {
     });
 };
 
-exports.findContactFromTeams = (req, res) => {
-  let foundTeams;
+exports.findContactFromTeams = async (req, res) => {
+  let foundTeams = [];
   try {
-    foundTeams = Team.find({ members: { $in: req.body.userId } });
-  } catch (err) {}
+    foundTeams = await Team.find({ members: { $in: req.params.userId } });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
 
+  console.log(foundTeams);
   let users = [];
+  // if (foundTeams) {
   foundTeams.forEach((team) => {
     team.members.forEach((member) => {
-      if (member != req.body.userId && !user.includes(member))
+      if (member != req.body.userId && !users.includes(member))
         users.push(member);
     });
   });
+  // }
 
   let foundUsers;
   try {
-    foundUsers = User.find({ _id: { $in: users } });
-  } catch (err) {}
+    foundUsers = await User.find({ _id: { $in: users } });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+
+  console.log(foundUsers);
+
+  res.status(200).json({ status: true, data: foundUsers });
+};
+
+exports.searchContactFromTeams = async (req, res) => {
+  let foundTeams = [];
+  try {
+    foundTeams = await Team.find({ members: { $in: req.params.userId } });
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+
+  console.log(foundTeams);
+  let users = [];
+  // if (foundTeams) {
+  foundTeams.forEach((team) => {
+    team.members.forEach((member) => {
+      if (member != req.body.userId && !users.includes(member))
+        users.push(member);
+    });
+  });
+  // }
+
+  let foundUsers;
+  try {
+    foundUsers = await User.find({
+      _id: { $in: users },
+      name: { $regex: req.body.name, $options: "i" },
+    }).sort("name");
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+
+  console.log(foundUsers);
 
   res.status(200).json({ status: true, data: foundUsers });
 };

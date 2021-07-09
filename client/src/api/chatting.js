@@ -14,6 +14,16 @@ export const getConversation = (userId) =>
     },
   });
 
+export const newConversation = (body) =>
+  axios({
+    method: "POST",
+    url: `${conversationUrl}`,
+    data: body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
 export const getMessage = (conversationId) =>
   axios({
     method: "GET",
@@ -84,6 +94,26 @@ export const newMessageTeams = (message) =>
     method: "POST",
     url: `${messageTeamsUrl}`,
     data: message,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+export const searchContactFromTeams = (body, id) =>
+  axios({
+    method: "POST",
+    url: `${teamsUrl}/search/contacts/${id}`,
+    data: body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+export const searchConversation = (body) =>
+  axios({
+    method: "POST",
+    url: `${conversationUrl}/search`,
+    data: body,
     headers: {
       "Content-Type": "application/json",
     },

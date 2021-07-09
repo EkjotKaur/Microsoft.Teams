@@ -6,7 +6,8 @@ exports.addMessage = async (req, res) => {
   let foundConversation;
   try {
     foundConversation = await Conversation.findById(req.body.conversationId);
-    if (!foundConversation) res.json({ status: false, message: "Conversation not found" });
+    if (!foundConversation)
+      res.json({ status: false, message: "Conversation not found" });
   } catch (err) {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
@@ -14,7 +15,8 @@ exports.addMessage = async (req, res) => {
   let foundUser;
   try {
     foundUser = await User.findById(req.body.senderId);
-    if (!foundUser) return res.json({ status: false, message: "Sender not found" });
+    if (!foundUser)
+      return res.json({ status: false, message: "Sender not found" });
   } catch (err) {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
@@ -27,15 +29,15 @@ exports.addMessage = async (req, res) => {
     sender: foundUser,
   });
 
-  newMessage
-    .save()
-    .then((savedMessage) => {
-      res.status(200).json({ status: true, data: savedMessage });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ status: false, message: "Something went wrong" });
-    });
+  foundConversation.lastMessage = new Date();
+  let savedMessage, updatedConvo;
+  try {
+    savedMessage = await newMessage.save();
+    updatedConvo = await foundConversation.save();
+  } catch (err) {
+    res.status(500).json({ status: false, message: "Something went wrong" });
+  }
+  res.status(200).json({ status: true, data: savedMessage });
 };
 
 exports.getMessage = (req, res) => {

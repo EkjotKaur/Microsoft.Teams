@@ -126,7 +126,7 @@ const Chat = () => {
       <div className="chatBox">
         {currentChat ? (
           <div className="chatBoxWrapper">
-            <ChatBar conversation={currentChat} currentUser={state} />
+            <ChatBar conversation={currentChat} currentUser={state} video={true} />
             <div className="chatBoxTop">
               {messages.map((message, i) => (
                 <div key={message._id ? message._id : i} ref={scrollRef}>

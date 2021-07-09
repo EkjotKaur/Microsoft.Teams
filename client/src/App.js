@@ -24,6 +24,7 @@ import SideNavbar from "./components/Navbars/SideNavbar/SideNavbar";
 import HeadBar from "./components/Navbars/HeadBar/HeadBar";
 import { initialState, reducer } from "./reducer/userReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
+import NewChat from "./components/NewChat/NewChat";
 
 export const UserContext = createContext();
 
@@ -82,6 +83,11 @@ const Routing = () => {
         {(state || user) && (
           <Route path="/teams/:teamId">
             <TeamsChat />
+          </Route>
+        )}
+        {(state || user) && (
+          <Route path="/newChat/:userId/:userName">
+            <NewChat />
           </Route>
         )}
         {!state && !user && (
