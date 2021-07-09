@@ -58,35 +58,32 @@ const Chat = () => {
   };
 
   const onSubmitHandler = (e) => {
-    console.log(newMessage);
-    console.log(newMessage === null);
-    if (newMessage) {
-      const message = {
-        senderId: state._id,
-        text: newMessage,
-        conversationId: currentChat._id,
-      };
+    if (!newMessage) return;
+    const message = {
+      senderId: state._id,
+      text: newMessage,
+      conversationId: currentChat._id,
+    };
 
-      const receiver = currentChat.members.find(
-        (memeber) => memeber._id !== state._id
-      );
+    const receiver = currentChat.members.find(
+      (memeber) => memeber._id !== state._id
+    );
 
-      chatApi
-        .newMessage(message)
-        .then((result) => {
-          setMessages([...messages, result.data.data]);
-          setNewMessage(null);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      socket.current.emit("sendMessage", {
-        senderId: state._id,
-        receiverId: receiver._id,
-        text: newMessage,
+    chatApi
+      .newMessage(message)
+      .then((result) => {
+        setMessages([...messages, result.data.data]);
+        setNewMessage("");
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    }
+
+    socket.current.emit("sendMessage", {
+      senderId: state._id,
+      receiverId: receiver._id,
+      text: newMessage,
+    });
   };
 
   useEffect(() => {
@@ -126,7 +123,11 @@ const Chat = () => {
       <div className="chatBox">
         {currentChat ? (
           <div className="chatBoxWrapper">
-            <ChatBar conversation={currentChat} currentUser={state} video={true} />
+            <ChatBar
+              conversation={currentChat}
+              currentUser={state}
+              video={true}
+            />
             <div className="chatBoxTop">
               {messages.map((message, i) => (
                 <div key={message._id ? message._id : i} ref={scrollRef}>

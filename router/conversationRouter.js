@@ -4,9 +4,10 @@ const {
   getConversation,
   searchConversation,
 } = require("../controllers/converstionController");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.post("/", newConversation);
-router.get("/:userId", getConversation);
-router.post("/search", searchConversation);
+router.post("/", isLoggedIn, newConversation);
+router.get("/:userId", isLoggedIn, getConversation);
+router.post("/search", isLoggedIn, searchConversation);
 
 module.exports = router;

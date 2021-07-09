@@ -18,6 +18,7 @@ const Teams = (props) => {
   };
 
   useEffect(() => {
+    console.log(localStorage.getItem("jwt"));
     const fetchData = async () => {
       try {
         const res = await chatApi.getTeams(state._id);

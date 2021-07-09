@@ -5,7 +5,7 @@ import { UserContext } from "../../../../App";
 import "./SearchResult.css";
 
 const SearchResults = ({ search, onClearHandler }) => {
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState();
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
 
@@ -21,7 +21,7 @@ const SearchResults = ({ search, onClearHandler }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [search]);
 
   console.log(result);
 
@@ -60,6 +60,11 @@ const SearchResults = ({ search, onClearHandler }) => {
             <div className="SearchUserDetailsEmail">{user.email}</div>
           </div>
         ))}
+      {result && result.length < 1 && (
+        <div className="SearchUserDetails">
+          <div className="SearchUserDetailsEmail">No User Found</div>
+        </div>
+      )}
     </div>
   );
 };

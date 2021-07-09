@@ -3,9 +3,10 @@ const User = require("../model/userModel");
 const { v4 } = require("uuid");
 
 exports.createTeams = async (req, res) => {
+  const creatorId = req.body.creatorId ? req.body.creatorId : req.user._id;
   let foundSender;
   try {
-    foundSender = await User.findById(req.body.creatorId);
+    foundSender = await User.findById(creatorId);
     if (!foundSender) res.json({ status: false, message: "Sender not found" });
   } catch (err) {
     res.status(500).json({ status: false, message: "Something went wrong" });
@@ -73,7 +74,8 @@ exports.joinTeam = async (req, res) => {
 };
 
 exports.getTeams = (req, res) => {
-  Team.find({ members: { $in: req.params.userId } })
+  const userId = req.params.userId ? req.params.userId : req.user._id;
+  Team.find({ members: { $in: userId } })
     .populate([{ path: "members" }])
     .populate("admin")
     .then((team) => {
@@ -97,9 +99,10 @@ exports.getTeamById = (req, res) => {
 };
 
 exports.findContactFromTeams = async (req, res) => {
+  const userId = req.params.userId ? req.params.userId : req.user._id;
   let foundTeams = [];
   try {
-    foundTeams = await Team.find({ members: { $in: req.params.userId } });
+    foundTeams = await Team.find({ members: { $in: userId } });
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -131,9 +134,10 @@ exports.findContactFromTeams = async (req, res) => {
 };
 
 exports.searchContactFromTeams = async (req, res) => {
+  const userId = req.params.userId ? req.params.userId : req.user._id;
   let foundTeams = [];
   try {
-    foundTeams = await Team.find({ members: { $in: req.params.userId } });
+    foundTeams = await Team.find({ members: { $in: userId } });
   } catch (err) {
     console.log(err);
     res.json(err);

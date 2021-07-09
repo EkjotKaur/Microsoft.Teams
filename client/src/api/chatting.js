@@ -11,6 +11,7 @@ export const getConversation = (userId) =>
     url: `${conversationUrl}/${userId}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -21,6 +22,7 @@ export const newConversation = (body) =>
     data: body,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -30,6 +32,7 @@ export const getMessage = (conversationId) =>
     url: `${messageUrl}/${conversationId}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -40,6 +43,7 @@ export const newMessage = (message) =>
     data: message,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -50,6 +54,7 @@ export const createTeam = (data) =>
     data,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -60,6 +65,7 @@ export const joinTeam = (data) =>
     data,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -69,6 +75,7 @@ export const getTeams = (userId) =>
     url: `${teamsUrl}/${userId}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 export const getTeamById = (teamId) =>
@@ -77,6 +84,7 @@ export const getTeamById = (teamId) =>
     url: `${teamsUrl}/teamById/${teamId}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -86,6 +94,7 @@ export const getTeamsMessage = (teamsId) =>
     url: `${messageTeamsUrl}/${teamsId}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -96,6 +105,7 @@ export const newMessageTeams = (message) =>
     data: message,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -106,6 +116,7 @@ export const searchContactFromTeams = (body, id) =>
     data: body,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 export const getContactFromTeams = (id) =>
@@ -114,6 +125,7 @@ export const getContactFromTeams = (id) =>
     url: `${teamsUrl}/contacts/${id}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
 
@@ -124,5 +136,6 @@ export const searchConversation = (body) =>
     data: body,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });

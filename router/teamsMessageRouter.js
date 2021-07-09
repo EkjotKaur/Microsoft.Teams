@@ -4,8 +4,11 @@ const {
 } = require("../controllers/messageTeamsController");
 
 const router = require("express").Router();
+const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.post("/", addMessage);
-router.get("/:teamId", getMessage);
+
+
+router.post("/", isLoggedIn, addMessage);
+router.get("/:teamId",isLoggedIn, getMessage);
 
 module.exports = router;

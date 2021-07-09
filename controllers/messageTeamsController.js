@@ -3,6 +3,7 @@ const Team = require("../model/teamsModel");
 const User = require("../model/userModel");
 
 exports.addMessage = async (req, res) => {
+  const senderId = req.body.senderId ? req.body.senderId : req.user._id;
   let foundTeam;
   try {
     foundTeam = await Team.findById(req.body.teamId);
@@ -13,7 +14,7 @@ exports.addMessage = async (req, res) => {
 
   let foundUser;
   try {
-    foundUser = await User.findById(req.body.senderId);
+    foundUser = await User.findById(senderId);
     if (!foundUser)
       return res.json({ status: false, message: "Sender not found" });
   } catch (err) {

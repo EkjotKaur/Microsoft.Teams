@@ -3,6 +3,7 @@ const Conversation = require("../model/conversationModel");
 const User = require("../model/userModel");
 
 exports.addMessage = async (req, res) => {
+  const senderId = req.body.senderId ? req.body.senderId : req.user._id;
   let foundConversation;
   try {
     foundConversation = await Conversation.findById(req.body.conversationId);
@@ -14,7 +15,7 @@ exports.addMessage = async (req, res) => {
 
   let foundUser;
   try {
-    foundUser = await User.findById(req.body.senderId);
+    foundUser = await User.findById(senderId);
     if (!foundUser)
       return res.json({ status: false, message: "Sender not found" });
   } catch (err) {

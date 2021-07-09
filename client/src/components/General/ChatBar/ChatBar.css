@@ -44,9 +44,11 @@
 .CharBarRight {
   display: flex;
   align-items: center;
+  padding-right: 33px;
 }
 .CharBarVideoCalling {
   padding-top: 10px;
+
   display: flex;
   align-items: center;
 }

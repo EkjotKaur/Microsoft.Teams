@@ -2,9 +2,10 @@ const Conversation = require("../model/conversationModel");
 const User = require("../model/userModel");
 
 exports.newConversation = async (req, res) => {
+  const senderId = req.body.senderId ? req.body.senderId : req.user._id;
   let foundSender;
   try {
-    foundSender = await User.findById(req.body.senderId);
+    foundSender = await User.findById(senderId);
     if (!foundSender) res.json({ status: false, message: "Sender not found" });
   } catch (err) {
     res.status(500).json({ status: false, message: "Something went wrong" });
@@ -31,7 +32,8 @@ exports.newConversation = async (req, res) => {
 };
 
 exports.getConversation = (req, res) => {
-  Conversation.find({ members: { $in: req.params.userId } })
+  const userId = req.params.userId ? req.params.userId : req.user._id;
+  Conversation.find({ members: { $in: userId } })
     .populate([{ path: "members" }])
     .sort("-lastMessage")
     .then((conversations) => {
@@ -43,7 +45,8 @@ exports.getConversation = (req, res) => {
 };
 
 exports.searchConversation = (req, res) => {
-  Conversation.findOne({ members: { $all: [req.body.user1, req.body.user2] } })
+  const user1 = req.body.user1 ? req.body.user1 : req.user._id;
+  Conversation.findOne({ members: { $all: [user1, req.body.user2] } })
     .populate([{ path: "members" }])
     .then((conversation) => {
       if (conversation)
