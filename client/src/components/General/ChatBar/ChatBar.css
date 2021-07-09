@@ -87,7 +87,7 @@
     width: calc(100% - 65px);
   }
 }
-@media only screen and (max-width: 470px) {
+@media only screen and (max-width: 475px) {
   .CharBarRight{
     padding-right: 0
   }

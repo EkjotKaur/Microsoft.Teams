@@ -23,7 +23,12 @@ const ChatBar = (props) => {
   return (
     <div className="ChatBar">
       <div className="ChatBarName">
-        {window.innerWidth <= 900 && <div className="leftArrow" onClick={() => props.onGoBack()}> ‹ </div>}
+        {window.innerWidth <= 900 && user && (
+          <div className="leftArrow" onClick={() => props.onGoBack()}>
+            {" "}
+            ‹{" "}
+          </div>
+        )}
 
         {(user || props.name) && (
           <div className="ChatBarNameImg">
@@ -41,7 +46,30 @@ const ChatBar = (props) => {
         <div>
           {" "}
           {user && user.name}
-          {props.team && props.team.name}
+          {/* {props.team && props.team.name} */}
+          {props.team &&
+            window.innerHeight > 685 &&
+            props.team.name.substring(0, Math.min(35, props.team.name.length))}
+          {props.team &&
+            window.innerHeight > 445 &&
+            window.innerHeight <= 685 &&
+            props.team.name.substring(0, Math.min(20, props.team.name.length))}
+          {props.team &&
+            window.innerHeight <= 445 &&
+            props.team.name.substring(0, Math.min(10, props.team.name.length))}
+          {props.team &&
+            window.innerHeight > 685 &&
+            props.team.name.length > 35 &&
+            "..."}
+          {props.team &&
+            window.innerHeight > 445 &&
+            window.innerHeight <= 685 &&
+            props.team.name.length > 20 &&
+            "..."}
+          {props.team &&
+            window.innerHeight <= 445 &&
+            props.team.name.length > 10 &&
+            "..."}
           {props.name && props.name}
         </div>
         {props.team && (

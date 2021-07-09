@@ -118,13 +118,13 @@ const TeamChat = () => {
 
   return (
     <div className="chat">
-      <div className="chatMenu">
+      {window.innerWidth > 900 && <div className="chatMenu">
         <div className="chatMenuWrapper">
           <SidebarHeading heading="Team" />
           {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
           {team && <TeamLeftSide team={team} />}
         </div>
-      </div>
+      </div>}
       <div className="chatBox">
         <div className="chatBoxWrapper">
           <ChatBar team={team} currentUser={state} video={true} />
