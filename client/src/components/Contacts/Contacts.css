@@ -5,6 +5,13 @@
   margin-left: 65px;
   padding: 70px 20px 20px;
 }
+.ContactFullWidth {
+  height: 100vh;
+  /* height: calc(100vh - 60px); */
+  background-color: #1f1f1f;
+  color: #fff;
+  padding: 70px 20px 80px 20px;
+}
 .contactOnContacts {
   padding: 10px 10px 20px;
   font-size: 20px;
@@ -19,6 +26,9 @@
   overflow-x: scroll;
   overflow-y: hidden;
   height: calc(100vh - 130px);
+}
+.ContactFullWidth .allContacts{
+  height: calc(100vh - 190px);
 }
 .ContactItem {
   width: 200px;

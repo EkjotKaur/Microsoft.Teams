@@ -33,3 +33,68 @@
   font-weight: 20px;
   padding: 10px 10px 40px;
 }
+
+@media only screen and (max-width: 1253px) {
+  .teamBoxPic {
+    /* width: 32%; */
+    /* margin: 0.66%; */
+    min-height: 210px;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .teamBoxPic {
+    width: 28%;
+    margin: 2.6%;
+  }
+}
+
+@media only screen and (max-width: 905px) {
+  .teamBoxPic {
+    /* width: 40%;
+    margin: 5%; */
+    min-height: 200px;
+  }
+  .teamsBoxPic {
+    font-size: 1.3rem;
+  }
+  .teamBoxName {
+    font-size: 1.2rem;
+  }
+}
+@media only screen and (max-width: 822px) {
+  .teamBoxPic {
+    /* width: 40%;
+    margin: 5%; */
+    min-height: 150px;
+  }
+  .teamsBoxPic {
+    font-size: 1.1rem;
+  }
+  .teamBoxName {
+    font-size: 1rem;
+  }
+}
+@media only screen and (max-width: 800) {
+  .teamBoxPic {
+    width: 45%;
+    margin: 2%;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .teamBoxPic {
+    width: 60%;
+    margin: 15px 20%;
+  }
+}
+@media only screen and (max-width: 444px) {
+  .teamBoxPic {
+    width: 100%;
+    margin: 15px 0%;
+  }
+}
+@media only screen and (max-width: 381px) {
+  .teamBoxPic {
+    width: 100%;
+    margin: 15px 0;
+  }
+}

@@ -26,8 +26,12 @@ const SideNavbar = (props) => {
   }, [location.pathname]);
 
   return (
-    <div className="sideNavbar">
-      <div>
+    <div
+      className={
+        window.innerHeight < window.innerWidth ? "sideNavbar" : "bottomNavbar"
+      }
+    >
+      <div className="sideNavItems">
         <div
           className={"sideNavlink"}
           onClick={(e) => {
@@ -71,7 +75,9 @@ const SideNavbar = (props) => {
               src={active === "Contacts" ? FilesHoverImg : FilesImg}
             />
           </div>
-          <div className={active === "Contacts" && "activeSideNavLink"}>Contacts</div>
+          <div className={active === "Contacts" && "activeSideNavLink"}>
+            Contacts
+          </div>
         </div>
       </div>
       <div></div>

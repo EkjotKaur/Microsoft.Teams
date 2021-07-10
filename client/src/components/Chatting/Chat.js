@@ -108,7 +108,9 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className="chat">
+    <div className={
+      window.innerHeight < window.innerWidth ? "chat" : "chatFullWidth"
+    }>
       {(window.innerWidth > 900 || !currentChat) && (
         <div className="chatMenu">
           <div className="chatMenuWrapper">
@@ -122,43 +124,45 @@ const Chat = () => {
           </div>
         </div>
       )}
-      <div className="chatBox">
-        {currentChat ? (
-          <div className="chatBoxWrapper">
-            <ChatBar
-              conversation={currentChat}
-              currentUser={state}
-              video={true}
-              onGoBack={() => setCurrentChat(null)}
-            />
-            <div className="chatBoxTop">
-              {messages.map((message, i) => (
-                <div key={message._id ? message._id : i} ref={scrollRef}>
-                  <Message
-                    own={checkOwn(message.sender._id)}
-                    message={message}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="chatBoxBottom">
-              <textarea
-                className="chatMessageInput"
-                placeholder="Type a new message"
-                onChange={(e) => setNewMessage(e.target.value)}
-                value={newMessage}
+      {(window.innerWidth > 900 || currentChat) && (
+        <div className="chatBox">
+          {currentChat ? (
+            <div className="chatBoxWrapper">
+              <ChatBar
+                conversation={currentChat}
+                currentUser={state}
+                video={true}
+                onGoBack={() => setCurrentChat(null)}
               />
-            </div>
-            <div className="messageSendBtn">
-              <div onClick={() => onSubmitHandler()} className="submitButton">
-                <img src={SendImg} alt="Send" />
+              <div className="chatBoxTop">
+                {messages.map((message, i) => (
+                  <div key={message._id ? message._id : i} ref={scrollRef}>
+                    <Message
+                      own={checkOwn(message.sender._id)}
+                      message={message}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="chatBoxBottom">
+                <textarea
+                  className="chatMessageInput"
+                  placeholder="Type a new message"
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  value={newMessage}
+                />
+              </div>
+              <div className="messageSendBtn">
+                <div onClick={() => onSubmitHandler()} className="submitButton">
+                  <img src={SendImg} alt="Send" />
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div>Open a Conversation to start a chat.</div>
-        )}
-      </div>
+          ) : (
+            <div>Open a Conversation to start a chat.</div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

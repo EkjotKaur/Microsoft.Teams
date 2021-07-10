@@ -46,7 +46,9 @@ const Contacts = (props) => {
       });
   }, []);
   return (
-    <div className="Contacts">
+    <div className={
+      window.innerHeight < window.innerWidth ? "Contact" : "ContactFullWidth"
+    }>
       <div className="contactOnContacts">Contacts</div>
       <div className="allContacts">
         {contacts &&

@@ -36,7 +36,11 @@ const Teams = (props) => {
   }, [state, setTeams, newTeams]);
 
   return (
-    <div className="teams">
+    <div
+      className={
+        window.innerHeight < window.innerWidth ? "teams" : "teamsFullWidth"
+      }
+    >
       <div className="teamsNav">
         <div className="teamsOnTeams">Teams</div>
         {/* <div> */}
@@ -55,6 +59,21 @@ const Teams = (props) => {
         </div>
       ) : (
         <div className="teamsDisplay">
+          {teams.map((team, id) => (
+            <TeamsBox team={team} key={id} />
+          ))}
+          {teams.map((team, id) => (
+            <TeamsBox team={team} key={id} />
+          ))}
+          {teams.map((team, id) => (
+            <TeamsBox team={team} key={id} />
+          ))}
+          {teams.map((team, id) => (
+            <TeamsBox team={team} key={id} />
+          ))}
+          {teams.map((team, id) => (
+            <TeamsBox team={team} key={id} />
+          ))}
           {teams.map((team, id) => (
             <TeamsBox team={team} key={id} />
           ))}

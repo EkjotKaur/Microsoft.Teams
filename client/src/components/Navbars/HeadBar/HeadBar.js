@@ -16,11 +16,13 @@ const HeadBar = (props) => {
 
   return (
     <div className="headBar">
-      <div className="headBarBox">
-        <div className="dots">. . .</div>
-        <div className="dots">. . .</div>
-        <div className="dots">. . .</div>
-      </div>
+      {window.innerWidth > 862 && (
+        <div className="headBarBox">
+          <div className="dots">. . .</div>
+          <div className="dots">. . .</div>
+          <div className="dots">. . .</div>
+        </div>
+      )}
       <div className="headSubBarBox">
         {window.innerWidth > 862 && (
           <div className="headBarTeamsHeading">

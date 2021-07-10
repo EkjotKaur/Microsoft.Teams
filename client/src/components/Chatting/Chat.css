@@ -7,6 +7,14 @@
   margin-left: 65px;
   padding-top: 50px;
 }
+.chatFullWidth {
+  height: 100vh;
+  /* margin-top: 50px; */
+  /* top: 50px; */
+  display: flex;
+  padding-bottom: 60px;
+  padding-top: 50px;
+}
 
 .chatMenu {
   flex: 3;
@@ -90,10 +98,11 @@
 }
 
 @media only screen and (max-width: 900px) {
-  .chat {
+  .chat, .chatFullWidth {
     display: block;
     background-color: #1f1f1f;
   }
+  
   .chatMenu {
     height: 100vh;
   }
@@ -129,3 +138,7 @@
     width: calc(100% - 100px);
   }
 }
+
+/* @media only screen and (max-width: ) {
+  .chat
+} */
