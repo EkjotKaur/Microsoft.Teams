@@ -4,6 +4,7 @@ import { UserContext } from "../../../../App";
 import * as chatApi from "../../../../api/chatting";
 import { useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreateTeamsModal = (props) => {
   return <New newTeamsHadler={(team) => props.newTeamsHadler(team)} />;
@@ -32,6 +33,13 @@ const MyVerticallyCenteredModal = (props) => {
       }
     } catch (err) {
       console.log(err);
+      toast(
+        `${
+          err.response && err.response.data
+            ? err.response.data.message
+            : "Something went wrong."
+        }`
+      );
     }
   };
 
@@ -92,6 +100,7 @@ function New(props) {
 
   return (
     <>
+      <ToastContainer />
       <Button
         className="createTeamsModalBtn"
         onClick={() => setModalShow(true)}

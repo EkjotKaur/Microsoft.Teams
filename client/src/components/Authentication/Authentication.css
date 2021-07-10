@@ -51,6 +51,10 @@
   padding: 10px;
   font-size: 16px;
 }
+.authInput:focus{
+  outline: none;
+  border-bottom: 2px solid #86b9e0
+}
 
 .authBtn {
   background-color: #0067b8;

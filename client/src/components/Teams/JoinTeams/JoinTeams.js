@@ -4,6 +4,7 @@ import "./JoinTeams.css";
 import * as chatApi from "../../../api/chatting";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../../App";
+import { ToastContainer, toast } from "react-toastify";
 
 const JoinTeams = (props) => {
   const history = useHistory();
@@ -13,7 +14,7 @@ const JoinTeams = (props) => {
   const JoinTeam = async () => {
     if (!code) {
       console.log("Enter Code");
-      return
+      return;
     }
     try {
       const res = await chatApi.joinTeam({
@@ -28,10 +29,18 @@ const JoinTeams = (props) => {
       }
     } catch (err) {
       console.log(err);
+      toast(
+        `${
+          err.response && err.response.data
+            ? err.response.data.message
+            : "Something went wrong."
+        }`
+      );
     }
   };
   return (
     <div className="createTeams">
+      <ToastContainer />
       <div className="createTeamsProfile"></div>
       <div className="createTeamsHeading">Join a team with a code</div>
       <div>

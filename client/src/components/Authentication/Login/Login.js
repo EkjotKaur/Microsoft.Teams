@@ -6,6 +6,7 @@ import Details from "../Details";
 import * as userApi from "../../../api/auth";
 import { useHistory } from "react-router";
 import { UserContext } from "../../../App";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = (props) => {
   const { state, dispatch } = useContext(UserContext);
@@ -41,80 +42,93 @@ const Login = (props) => {
       return;
     }
 
-    try {
-      const res = await userApi.login({
+    userApi
+      .login({
         email: credentials.email,
         password: credentials.password,
-        use: credentials.use,
-      });
-      if (!res.status) console.log(res.message);
-      else {
-        localStorage.setItem("jwt", res.data.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.data));
-        dispatch({ type: "USER", payload: res.data.data });
+      })
+      .then((result) => {
+        console.log(result);
+
+        localStorage.setItem("jwt", result.data.data.token);
+        localStorage.setItem("user", JSON.stringify(result.data.data));
+        dispatch({ type: "USER", payload: result.data.data });
         // history.push("/chat");
-      }
-    } catch (err) {
-      console.log(err);
-      setStep(1);
-      setCredentials(initialCredentials);
-    }
+      })
+      .catch((err) => {
+        console.log(err);
+        setCredentials(initialCredentials);
+        setStep(1);
+        console.log(err.response, err.response.data);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
+      });
   };
 
   return (
-    <div className="auth">
-      <div>
-        <h1 className="authTeamsHeading">Microsoft Teams</h1>
-      </div>
-      <div className="authCard">
+    <React.Fragment>
+      <ToastContainer />
+      <div className="auth">
         <div>
-          <img src={MsLogo} alt="logo" />
-
-          {step === 1 && (
-            <Details
-              name="email"
-              type="email"
-              value={credentials.email}
-              placeholder="someone@email.com"
-              heading="Enter an email"
-              description="We'll use this email to set up Teams. If you already have a Microsoft account, feel free to use that email here."
-              onChangeHandler={onChangeHandler}
-            />
-          )}
-
-          {step === 2 && (
-            <Details
-              email={credentials.email}
-              name="password"
-              type="password"
-              value={credentials.password}
-              placeholder="Password"
-              heading="Enter password"
-              onChangeHandler={onChangeHandler}
-            />
-          )}
+          <h1 className="authTeamsHeading">Microsoft Teams</h1>
         </div>
-        <div>
-          {step < 2 ? (
-            <button
-              className="authBtn"
-              onClick={changeStep}
-              //   disabled={
-              //     !(step === 1 && credentials.email) &&
-              //     !(step === 2 && credentials.use)
-              //   }
-            >
-              Next
-            </button>
-          ) : (
-            <button className="authBtn" onClick={onSubmitHandler}>
-              Submit
-            </button>
-          )}
+        <div className="authCard">
+          <div>
+            <img src={MsLogo} alt="logo" />
+
+            {step === 1 && (
+              <Details
+                name="email"
+                type="email"
+                value={credentials.email}
+                placeholder="someone@email.com"
+                heading="Enter an email"
+                description="We'll use this email to set up Teams. If you already have a Microsoft account, feel free to use that email here."
+                onChangeHandler={onChangeHandler}
+              />
+            )}
+
+            {step === 2 && (
+              <Details
+                email={credentials.email}
+                name="password"
+                type="password"
+                value={credentials.password}
+                placeholder="Password"
+                heading="Enter password"
+                onChangeHandler={onChangeHandler}
+              />
+            )}
+          </div>
+          <div>
+            {step < 2 ? (
+              <button
+                className="authBtn"
+                onClick={changeStep}
+                //   disabled={
+                //     !(step === 1 && credentials.email) &&
+                //     !(step === 2 && credentials.use)
+                //   }
+              >
+                Next
+              </button>
+            ) : (
+              <button className="authBtn" onClick={onSubmitHandler}>
+                Submit
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="OtherAuth" onClick={() => history.push("/signup")}>
+          Don't have an account? Click to Signup
         </div>
       </div>
-      <div className="OtherAuth" onClick={() => history.push("/signup")} >Don't have an account? Click to Signup</div>
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -8,7 +8,7 @@ exports.signup = async (req, res) => {
 
   // checking for required fields
   if (!email || !password) {
-    res.json({ message: "Please fill all the details", status: false });
+    res.status(422).json({ message: "Please fill all the details", status: false });
   }
 
   // confirming password
@@ -24,7 +24,7 @@ exports.signup = async (req, res) => {
     });
     if (user) {
       console.log("Exists");
-      res.json({
+      res.status(422).json({
         success: "false",
         message: "E-mail already exists",
       });

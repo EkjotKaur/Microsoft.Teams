@@ -27,6 +27,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NewChat from "./components/NewChat/NewChat";
 import Contacts from "./components/Contacts/Contacts";
 import Home from "./components/Home/Home";
+import "react-toastify/dist/ReactToastify.css";
 
 export const UserContext = createContext();
 

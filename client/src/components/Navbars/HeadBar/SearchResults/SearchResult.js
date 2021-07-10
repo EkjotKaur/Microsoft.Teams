@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import * as chatApi from "../../../../api/chatting";
 import { UserContext } from "../../../../App";
 import "./SearchResult.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const SearchResults = ({ search, onClearHandler }) => {
   const [result, setResult] = useState();
@@ -20,6 +21,13 @@ const SearchResults = ({ search, onClearHandler }) => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   }, [search]);
 
@@ -43,12 +51,20 @@ const SearchResults = ({ search, onClearHandler }) => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   };
 
   return (
     <div className="SearchResults">
       {/* <div>Users</div> */}
+      <ToastContainer />
       {result &&
         result.map((user) => (
           <div

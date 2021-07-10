@@ -5,6 +5,7 @@ import Details from "../Details";
 
 import * as userApi from "../../../api/auth";
 import { useHistory } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 
 const Signup = (props) => {
   const history = useHistory();
@@ -49,7 +50,7 @@ const Signup = (props) => {
         email: credentials.email,
         password: credentials.password,
         use: credentials.use,
-        name: credentials.name
+        name: credentials.name,
       })
       .then((result) => {
         console.log(result);
@@ -63,6 +64,13 @@ const Signup = (props) => {
         console.log(err);
         setStep(1);
         setCredentials(initialCredentials);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   };
 
@@ -70,6 +78,7 @@ const Signup = (props) => {
 
   return (
     <div className="auth">
+      <ToastContainer />
       <div>
         <h1 className="authTeamsHeading">Microsoft Teams</h1>
       </div>
@@ -155,7 +164,9 @@ const Signup = (props) => {
           )}
         </div>
       </div>
-      <div className="OtherAuth" onClick={() => history.push("/login")} >Already have an account? Click to Login</div>
+      <div className="OtherAuth" onClick={() => history.push("/login")}>
+        Already have an account? Click to Login
+      </div>
     </div>
   );
 };

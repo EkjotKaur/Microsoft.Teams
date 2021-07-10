@@ -5,6 +5,8 @@ import ChatBar from "../General/ChatBar/ChatBar";
 import "./NewChat.css";
 import SendImg from "../../assets/images/TextBox/send.png";
 import * as chatApi from "../../api/chatting";
+import { ToastContainer, toast } from "react-toastify";
+
 
 // import
 
@@ -27,6 +29,13 @@ const NewChat = (props) => {
       });
     } catch (err) {
       console.log(err);
+      toast(
+        `${
+          err.response && err.response.data
+            ? err.response.data.message
+            : "Something went wrong."
+        }`
+      );
     }
 
     if (createConversationData.data.status == "false") {
@@ -54,11 +63,19 @@ const NewChat = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   };
 
   return (
     <div className="NewChat">
+      <ToastContainer />
       <ChatBar name={userName} currentUser={state} video={false} />
       {/* <div className="chatBox">
         <div className="chatBoxWrapper"> */}

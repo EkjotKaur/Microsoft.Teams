@@ -9,6 +9,7 @@ import { mainUrl } from "../../api/index";
 import SidebarHeading from "../General/sidebarHeading";
 import SendImg from "../../assets/images/TextBox/send.png";
 import ChatBar from "../General/ChatBar/ChatBar";
+import { ToastContainer, toast } from "react-toastify";
 
 const Chat = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -35,6 +36,13 @@ const Chat = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   }, []);
 
@@ -49,6 +57,13 @@ const Chat = () => {
         })
         .catch((err) => {
           console.log(err);
+          toast(
+            `${
+              err.response && err.response.data
+                ? err.response.data.message
+                : "Something went wrong."
+            }`
+          );
         });
     }
   }, [currentChat]);
@@ -77,6 +92,13 @@ const Chat = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
 
     socket.current.emit("sendMessage", {
@@ -113,6 +135,7 @@ const Chat = () => {
         window.innerHeight < window.innerWidth ? "chat" : "chatFullWidth"
       }
     >
+      <ToastContainer />
       {(window.innerWidth > 900 || !currentChat) && (
         <div className="chatMenu">
           <div className="chatMenuWrapper">

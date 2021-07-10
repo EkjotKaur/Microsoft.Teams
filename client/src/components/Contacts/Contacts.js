@@ -3,6 +3,7 @@ import "./Contacts.css";
 import * as chatApi from "../../api/chatting";
 import { UserContext } from "../../App";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 // import
 
@@ -28,6 +29,13 @@ const Contacts = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   };
 
@@ -46,9 +54,11 @@ const Contacts = (props) => {
       });
   }, []);
   return (
-    <div className={
-      window.innerHeight < window.innerWidth ? "Contacts" : "ContactFullWidth"
-    }>
+    <div
+      className={
+        window.innerHeight < window.innerWidth ? "Contacts" : "ContactFullWidth"
+      }
+    >
       <div className="contactOnContacts">Contacts</div>
       <div className="allContacts">
         {contacts &&
@@ -63,6 +73,7 @@ const Contacts = (props) => {
             </div>
           ))}
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import * as chatApi from "../../api/chatting";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../App";
 import TeamsBox from "./TeamsBox/TeamsBox";
+import { ToastContainer, toast } from "react-toastify";
 
 const Teams = (props) => {
   const [teams, setTeams] = useState();
@@ -30,6 +31,13 @@ const Teams = (props) => {
         }
       } catch (err) {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       }
     };
     fetchData();
@@ -41,6 +49,7 @@ const Teams = (props) => {
         window.innerHeight < window.innerWidth ? "teams" : "teamsFullWidth"
       }
     >
+      <ToastContainer />
       <div className="teamsNav">
         <div className="teamsOnTeams">Teams</div>
         {/* <div> */}

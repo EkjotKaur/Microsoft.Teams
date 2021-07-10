@@ -6,6 +6,7 @@ import { UserContext } from "../../../App";
 import * as chatApi from "../../../api/chatting";
 import { useHistory } from "react-router-dom";
 import CreateTeamsModal from "./CreateTeamModal/CreateTeamModal";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreateTeams = (props) => {
   const { state, dispatch } = useContext(UserContext);
@@ -21,11 +22,19 @@ const CreateTeams = (props) => {
       }
     } catch (err) {
       console.log(err);
+      toast(
+        `${
+          err.response && err.response.data
+            ? err.response.data.message
+            : "Something went wrong."
+        }`
+      );
     }
   };
 
   return (
     <div className="createTeams">
+      <ToastContainer />
       <div className="createTeamsProfile"></div>
       <div className="createTeamsHeading">Create a Teams</div>
       <div>

@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import TeamLeftSide from "./TeamLeftSide/TeamLeftSide";
 import SendImg from "../../assets/images/TextBox/send.png";
 import ChatBar from "../General//ChatBar/ChatBar";
+import { ToastContainer, toast } from "react-toastify";
 
 const TeamChat = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -43,6 +44,13 @@ const TeamChat = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   }, []);
 
@@ -56,6 +64,13 @@ const TeamChat = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
   }, [teamId]);
 
@@ -88,6 +103,13 @@ const TeamChat = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
       });
     socket.current.emit("sendMessageToTeams", {
       senderId: state._id,
@@ -122,6 +144,7 @@ const TeamChat = () => {
         window.innerHeight < window.innerWidth ? "chat" : "chatFullWidth"
       }
     >
+      <ToastContainer />
       {window.innerWidth > 900 && (
         <div className="chatMenu">
           <div className="chatMenuWrapper">
