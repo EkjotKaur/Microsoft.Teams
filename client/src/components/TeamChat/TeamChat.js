@@ -64,7 +64,7 @@ const TeamChat = () => {
   };
 
   const onSubmitHandler = (e) => {
-    if(!newMessage){
+    if (!newMessage) {
       return;
     }
     console.log("Sending");
@@ -117,14 +117,20 @@ const TeamChat = () => {
   }, [messages]);
 
   return (
-    <div className="chat">
-      {window.innerWidth > 900 && <div className="chatMenu">
-        <div className="chatMenuWrapper">
-          <SidebarHeading heading="Team" />
-          {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
-          {team && <TeamLeftSide team={team} />}
+    <div
+      className={
+        window.innerHeight < window.innerWidth ? "chat" : "chatFullWidth"
+      }
+    >
+      {window.innerWidth > 900 && (
+        <div className="chatMenu">
+          <div className="chatMenuWrapper">
+            <SidebarHeading heading="Team" />
+            {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
+            {team && <TeamLeftSide team={team} />}
+          </div>
         </div>
-      </div>}
+      )}
       <div className="chatBox">
         <div className="chatBoxWrapper">
           <ChatBar team={team} currentUser={state} video={true} />

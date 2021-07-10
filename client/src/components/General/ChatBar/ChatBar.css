@@ -86,15 +86,18 @@
     position: fixed;
     width: calc(100% - 65px);
   }
+  .chatFullWidth .ChatBar {
+    width: 100%;
+  }
 }
 @media only screen and (max-width: 475px) {
-  .CharBarRight{
-    padding-right: 0
+  .CharBarRight {
+    padding-right: 0;
   }
-  .ChatBar{
+  .ChatBar {
     font-size: 16px;
   }
-  .ChatBarNameImg{
+  .ChatBarNameImg {
     width: 35px;
     height: 35px;
   }
