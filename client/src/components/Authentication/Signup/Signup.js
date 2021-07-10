@@ -155,6 +155,7 @@ const Signup = (props) => {
           )}
         </div>
       </div>
+      <div className="OtherAuth" onClick={() => history.push("/login")} >Already have an account? Click to Login</div>
     </div>
   );
 };

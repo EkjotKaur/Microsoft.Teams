@@ -79,9 +79,9 @@
   color: #fff;
 }
 
-.chatOnline {
+/* .chatOnline {
   flex: 3;
-}
+} */
 
 .chatMenuWrapper,
 .chatBoxWrapper,
@@ -89,6 +89,11 @@
   /* padding: 10px; */
   /* background-color: aqua; */
   height: 100%;
+}
+
+.chatMenuScroll{
+  overflow-y: scroll;
+  height: calc(100vh - 110px);
 }
 
 @media only screen and (max-width: 1000px) {

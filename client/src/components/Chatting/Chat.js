@@ -108,19 +108,23 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className={
-      window.innerHeight < window.innerWidth ? "chat" : "chatFullWidth"
-    }>
+    <div
+      className={
+        window.innerHeight < window.innerWidth ? "chat" : "chatFullWidth"
+      }
+    >
       {(window.innerWidth > 900 || !currentChat) && (
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <SidebarHeading heading="Chat" />
             {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
-            {conversations.map((chat) => (
-              <div key={chat._id} onClick={() => setCurrentChat(chat)}>
-                <Conversation conversation={chat} currentUser={state} />
-              </div>
-            ))}
+            <div className="chatMenuScroll">
+              {conversations.map((chat) => (
+                <div key={chat._id} onClick={() => setCurrentChat(chat)}>
+                  <Conversation conversation={chat} currentUser={state} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

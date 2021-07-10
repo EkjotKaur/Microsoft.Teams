@@ -26,6 +26,7 @@ import { initialState, reducer } from "./reducer/userReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NewChat from "./components/NewChat/NewChat";
 import Contacts from "./components/Contacts/Contacts";
+import Home from "./components/Home/Home";
 
 export const UserContext = createContext();
 
@@ -106,8 +107,13 @@ const Routing = () => {
             <Login />
           </Route>
         )}
+        {!state && !user && (
+          <Route path="/home">
+            <Home />
+          </Route>
+        )}
         {(state || user) && <Redirect to="/teams" exact />}
-        {<Redirect to="/login" exact />}
+        {!state && !user && <Redirect to="/home" exact />}
       </Switch>
     </React.Fragment>
   );

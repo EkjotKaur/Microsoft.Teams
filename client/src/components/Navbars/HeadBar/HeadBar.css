@@ -25,6 +25,7 @@
 .headSubBarBox {
   display: flex;
   width: calc(100% - 65px);
+  /* width: 100%; */
   align-items: center;
 }
 .headBarTeamsHeading {
@@ -37,6 +38,8 @@
 }
 .headBarSearch {
   flex: 9;
+  display: flex;
+  justify-content: space-between;
 }
 .headerBarSearchInput {
   width: 65%;

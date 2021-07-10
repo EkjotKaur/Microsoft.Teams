@@ -43,49 +43,49 @@ const HeadBar = (props) => {
               onClearHandler={clearResultHandler}
             />
           )}
-        </div>
-        {state && (
-          <div className="headerBarProfile">
-            {/* <div className="headerBarProfileImg">
+          {state && (
+            <div className="headerBarProfile">
+              {/* <div className="headerBarProfileImg">
             {state.name.match(/\b(\w)/g).join("")}
           </div> */}
-            <Dropdown>
-              <Dropdown.Toggle
-                className="headerBarProfileImg"
-                variant="success"
-                id="dropdown-basic"
-              >
-                {state.name.match(/\b(\w)/g).join("")}
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu className="dropdownBody">
-                <div className="profileOfUser">
-                  <div className="profileOfUserImg">
-                    {state.name.match(/\b(\w)/g).join("")}
-                  </div>
-                  <div className="profileOfUserImgDetails">
-                    <div className="profileOfUserImgDetailsName">
-                      {state.name}
-                    </div>
-                    <div className="profileOfUserImgDetailsEmail">
-                      {state.email}
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="signout"
-                  onClick={() => {
-                    localStorage.clear();
-                    dispatch({ type: "CLEAR" });
-                    history.push("/");
-                  }}
+              <Dropdown>
+                <Dropdown.Toggle
+                  className="headerBarProfileImg"
+                  variant="success"
+                  id="dropdown-basic"
                 >
-                  Sign Out
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        )}
+                  {state.name.match(/\b(\w)/g).join("")}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu className="dropdownBody">
+                  <div className="profileOfUser">
+                    <div className="profileOfUserImg">
+                      {state.name.match(/\b(\w)/g).join("")}
+                    </div>
+                    <div className="profileOfUserImgDetails">
+                      <div className="profileOfUserImgDetailsName">
+                        {state.name}
+                      </div>
+                      <div className="profileOfUserImgDetailsEmail">
+                        {state.email}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="signout"
+                    onClick={() => {
+                      localStorage.clear();
+                      dispatch({ type: "CLEAR" });
+                      // history.push("/");
+                    }}
+                  >
+                    Sign Out
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

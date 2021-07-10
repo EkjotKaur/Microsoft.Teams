@@ -18,7 +18,7 @@
 }
 
 .authCard {
-  width: 400px;
+  width: 450px;
   min-height: 330px;
   margin: 0 auto;
   background-color: #fff;
@@ -72,4 +72,21 @@
 }
 .optionDesc {
   padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 500px) {
+  .authCard {
+    width: 90%;
+  }
+}
+/* @media only screen and (max-width: 500px) {
+  .authCard {
+    width: 400px;
+  }
+} */
+.OtherAuth {
+  padding-top: 10px;
+  color: #7375e7;
+  font-weight: 500;
+  cursor: pointer;
 }
