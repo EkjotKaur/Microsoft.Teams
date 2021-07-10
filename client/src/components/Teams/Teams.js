@@ -53,27 +53,18 @@ const Teams = (props) => {
         {/* </div> */}
       </div>
       {!teams || teams.length === 0 ? (
-        <div className="teamsList">
+        <div
+          className={
+            window.innerHeight < window.innerWidth
+              ? "createTeamsList"
+              : "createTeamsListFullWidth"
+          }
+        >
           <CreateTeams newTeamsHadler={(team) => newTeamsHadler(team)} />
           <JoinTeams newTeamsHadler={(team) => newTeamsHadler(team)} />
         </div>
       ) : (
         <div className="teamsDisplay">
-          {teams.map((team, id) => (
-            <TeamsBox team={team} key={id} />
-          ))}
-          {teams.map((team, id) => (
-            <TeamsBox team={team} key={id} />
-          ))}
-          {teams.map((team, id) => (
-            <TeamsBox team={team} key={id} />
-          ))}
-          {teams.map((team, id) => (
-            <TeamsBox team={team} key={id} />
-          ))}
-          {teams.map((team, id) => (
-            <TeamsBox team={team} key={id} />
-          ))}
           {teams.map((team, id) => (
             <TeamsBox team={team} key={id} />
           ))}

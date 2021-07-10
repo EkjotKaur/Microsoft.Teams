@@ -5,4 +5,15 @@
   color: #fff;
   display: flex;
   padding: 70px 20px 20px;
+  flex-wrap: wrap;
+}
+.createTeamsListFullWidth {
+  /* padding-bottom: 60px; */
+  min-height: 100vh;
+  background-color: #1f1f1f;
+  color: #fff;
+  display: flex;
+  padding: 70px 20px 80px;
+  flex-wrap: wrap;
+  justify-content: center;
 }

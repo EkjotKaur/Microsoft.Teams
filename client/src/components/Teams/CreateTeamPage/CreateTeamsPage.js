@@ -34,7 +34,9 @@ const CreateTeamsPage = (props) => {
   }, [state._id, setTeams, newTeams]);
 
   return (
-    <div className="createTeamsList">
+    <div className={
+      window.innerHeight < window.innerWidth ? "createTeamsList" : "createTeamsListFullWidth"
+    }>
       <CreateTeams newTeamsHadler={(team) => newTeamsHadler(team)} />
       <JoinTeams newTeamsHadler={(team) => newTeamsHadler(team)} />
     </div>
