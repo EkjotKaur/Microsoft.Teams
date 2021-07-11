@@ -91,7 +91,7 @@ exports.login = async (req, res) => {
   try {
     foundUser = await User.findOne({ email: email });
     if (!foundUser) {
-      return res.status(500).json({
+      return res.status(422).json({
         success: "false",
         message: "Incorrect email or password",
       });

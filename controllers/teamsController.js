@@ -78,6 +78,7 @@ exports.getTeams = (req, res) => {
   Team.find({ members: { $in: userId } })
     .populate([{ path: "members" }])
     .populate("admin")
+    .sort("createdAt")
     .then((team) => {
       res.status(200).json({ status: true, data: team });
     })
@@ -121,7 +122,7 @@ exports.findContactFromTeams = async (req, res) => {
 
   let foundUsers;
   try {
-    foundUsers = await User.find({ _id: { $in: users } });
+    foundUsers = await User.find({ _id: { $in: users } }).sort("name");
   } catch (err) {
     console.log(err);
     res.json(err);

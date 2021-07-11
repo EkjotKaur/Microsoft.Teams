@@ -44,12 +44,14 @@ const conversationRouter = require("./router/conversationRouter");
 const messageRouter = require("./router/messageRouter");
 const teamsMessageRouter = require("./router/teamsMessageRouter");
 const teamsRouter = require("./router/teamsRouter");
+const notesRouter = require("./router/notesRouter");
 
 app.use("/api/user", userRouter);
 app.use("/api/conversation", conversationRouter);
 app.use("/api/message", messageRouter);
 app.use("/api/teams", teamsRouter);
 app.use("/api/messageTeams", teamsMessageRouter);
+app.use("/api/notes", notesRouter);
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));

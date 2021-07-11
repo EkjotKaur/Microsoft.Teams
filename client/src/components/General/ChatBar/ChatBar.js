@@ -48,30 +48,46 @@ const ChatBar = (props) => {
           {user && user.name}
           {/* {props.team && props.team.name} */}
           {props.team &&
-            window.innerHeight > 685 &&
-            props.team.name.substring(0, Math.min(35, props.team.name.length))}
+            window.innerWidth > 685 &&
+            props.team.name.substring(0, Math.min(30, props.team.name.length))}
           {props.team &&
-            window.innerHeight > 445 &&
-            window.innerHeight <= 685 &&
-            props.team.name.substring(0, Math.min(20, props.team.name.length))}
+            window.innerWidth > 445 &&
+            window.innerWidth <= 685 &&
+            props.team.name.substring(0, Math.min(15, props.team.name.length))}
           {props.team &&
-            window.innerHeight <= 445 &&
-            props.team.name.substring(0, Math.min(10, props.team.name.length))}
+            window.innerWidth <= 445 &&
+            props.team.name.substring(0, Math.min(5, props.team.name.length))}
           {props.team &&
-            window.innerHeight > 685 &&
-            props.team.name.length > 35 &&
+            window.innerWidth > 685 &&
+            props.team.name.length > 30 &&
             "..."}
           {props.team &&
-            window.innerHeight > 445 &&
-            window.innerHeight <= 685 &&
-            props.team.name.length > 20 &&
+            window.innerWidth > 445 &&
+            window.innerWidth <= 685 &&
+            props.team.name.length > 15 &&
             "..."}
           {props.team &&
-            window.innerHeight <= 445 &&
-            props.team.name.length > 10 &&
+            window.innerWidth <= 445 &&
+            props.team.name.length > 5 &&
             "..."}
           {props.name && props.name}
         </div>
+        {props.tabs && (
+          <div className="tabs">
+            <div
+              className={props.active === "Chat" && "active"}
+              onClick={() => props.onChangeTab("Chat")}
+            >
+              Chat
+            </div>
+            <div
+              className={props.active === "Notes" && "active"}
+              onClick={() => props.onChangeTab("Notes")}
+            >
+              Notes
+            </div>
+          </div>
+        )}
         {props.team && (
           <Dropdown>
             <Dropdown.Toggle
@@ -88,6 +104,7 @@ const ChatBar = (props) => {
           </Dropdown>
         )}
       </div>
+
       {props.video && (
         <div className="CharBarRight">
           <div

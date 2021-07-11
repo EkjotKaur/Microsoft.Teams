@@ -12,6 +12,7 @@ import TeamLeftSide from "./TeamLeftSide/TeamLeftSide";
 import SendImg from "../../assets/images/TextBox/send.png";
 import ChatBar from "../General//ChatBar/ChatBar";
 import { ToastContainer, toast } from "react-toastify";
+import Notes from "../Notes/Notes";
 
 const TeamChat = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -21,6 +22,7 @@ const TeamChat = () => {
   const scrollRef = useRef();
   const [team, setTeam] = useState();
   const teamId = useParams().teamId;
+  const [active, setActive] = useState("Chat");
   console.log(teamId);
 
   useEffect(() => {
@@ -156,27 +158,44 @@ const TeamChat = () => {
       )}
       <div className="chatBox">
         <div className="chatBoxWrapper">
-          <ChatBar team={team} currentUser={state} video={true} />
-          <div className="chatBoxTop">
-            {messages.map((message, i) => (
-              <div key={message._id ? message._id : i} ref={scrollRef}>
-                <Message own={checkOwn(message.sender._id)} message={message} />
-              </div>
-            ))}
-          </div>
-          <div className="chatBoxBottom">
-            <textarea
-              className="chatMessageInput"
-              placeholder="Type a new message"
-              onChange={(e) => setNewMessage(e.target.value)}
-              value={newMessage}
-            />
-          </div>
-          <div className="messageSendBtn">
-            <div onClick={() => onSubmitHandler()} className="submitButton">
-              <img src={SendImg} alt="Send" />
+          <ChatBar
+            team={team}
+            currentUser={state}
+            video={true}
+            onChangeTab={(type) => setActive(type)}
+            tabs={true}
+            active={active}
+          />
+          {active === "Chat" && (
+            <div className="chatBoxTop">
+              {messages.map((message, i) => (
+                <div key={message._id ? message._id : i} ref={scrollRef}>
+                  <Message
+                    own={checkOwn(message.sender._id)}
+                    message={message}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
+          )}
+          {active === "Chat" && (
+            <div className="chatBoxBottom">
+              <textarea
+                className="chatMessageInput"
+                placeholder="Type a new message"
+                onChange={(e) => setNewMessage(e.target.value)}
+                value={newMessage}
+              />
+            </div>
+          )}
+          {active === "Chat" && (
+            <div className="messageSendBtn">
+              <div onClick={() => onSubmitHandler()} className="submitButton">
+                <img src={SendImg} alt="Send" />
+              </div>
+            </div>
+          )}
+          {active === "Notes" && <Notes teamsId={teamId} />}
         </div>
       </div>
     </div>

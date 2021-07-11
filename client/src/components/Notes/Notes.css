@@ -1,0 +1,62 @@
+.Notes {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.notesHeader {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 40px 0 10px;
+}
+.createNotes {
+  background-color: #161616;
+  border: 1px solid #888;
+  padding: 5px 25px;
+}
+.allNotes {
+  height: calc(100vh - 170px);
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.allNotesFullWidth {
+  height: calc(100vh - 230px);
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.note {
+  /* background-color: #5a5de7; */
+  background: rgb(101, 104, 237);
+  background: linear-gradient(
+    135deg,
+    rgba(101, 104, 237, 1) 6%,
+    rgba(94, 98, 233, 1) 52%,
+    rgba(127, 129, 225, 1) 100%
+  );
+  cursor: pointer;
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 4px;
+  height: 120px;
+}
+.headingNote {
+  font-size: 1.3rem;
+  font-weight: 700;
+  /* background-color: #161616; */
+}
+.descriptionNote {
+  font-size: 15px;
+  font-style: italic;
+}

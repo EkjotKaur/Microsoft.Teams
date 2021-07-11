@@ -1,7 +1,7 @@
 .ChatBar {
   border-bottom: 1px solid #000;
-  padding: 9px 20px;
-  /* height: 46px; */
+  padding: 0px 20px;
+  height: 59px;
   font-size: 19px;
   font-weight: 700;
   color: #fff;
@@ -15,6 +15,7 @@
 }
 .ChatBarName {
   display: flex;
+  padding: 20px 0;
   align-items: center;
 }
 .ChatBarNameImg {
@@ -102,4 +103,17 @@
     width: 35px;
     height: 35px;
   }
+}
+.tabs {
+  display: flex;
+  padding: 0 10px;
+}
+.tabs div {
+  padding: 16px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  height: 100%;
+}
+.active {
+  border-bottom: 3px solid #6d6fd8;
 }
