@@ -3,11 +3,13 @@ import "./ChatBar.css";
 import VideoCameraImg from "../../../assets/images/Chat/video-camera.png";
 import { useHistory } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 // import
 
 const ChatBar = (props) => {
   const [user, setUser] = useState();
+  const [copied, setCopied] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -99,7 +101,16 @@ const ChatBar = (props) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="dropdownBody codeBody">
-              <div className="teamCode">Team Code: {props.team.code}</div>
+              <div className="teamCode">
+                <div>Team Code:</div>
+                <div>{props.team.code}</div>
+                <CopyToClipboard
+                  text={props.team.code}
+                  onCopy={() => setCopied(true)}
+                >
+                  <div className="copy">Copy</div>
+                </CopyToClipboard>
+              </div>
             </Dropdown.Menu>
           </Dropdown>
         )}

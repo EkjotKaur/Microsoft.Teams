@@ -68,6 +68,8 @@
   font-size: 14px;
   padding: 10px;
   font-weight: 400;
+  /* max-width: 500px;
+  width: 100%; */
 }
 .leftArrow {
   font-size: 3rem;
@@ -116,4 +118,14 @@
 }
 .active {
   border-bottom: 3px solid #6d6fd8;
+}
+.copy{
+  cursor: pointer;
+  background: #6d6fd8;
+  width: fit-content;
+  padding: 2px 10px;
+  display: inline;
+  margin: 10px 0px;
+  float: right;
+  border-radius: 4px;
 }
