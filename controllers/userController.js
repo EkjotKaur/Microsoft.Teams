@@ -8,13 +8,10 @@ exports.signup = async (req, res) => {
 
   // checking for required fields
   if (!email || !password) {
-    res.status(422).json({ message: "Please fill all the details", status: false });
+    res
+      .status(422)
+      .json({ message: "Please fill all the details", status: false });
   }
-
-  // confirming password
-  // if (password !== confirmPassword) {
-  //   res.status(422).json({ message: "Password don't match", status: false });
-  // }
 
   // checking if the user exists
   let user;
@@ -87,6 +84,7 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
+  // Searching for user with the email
   let foundUser;
   try {
     foundUser = await User.findOne({ email: email });
@@ -103,6 +101,7 @@ exports.login = async (req, res) => {
     });
   }
 
+  // Comparing the password from the client side and hashed password from the database
   bcrypt
     .compare(password, foundUser.password)
     .then((doesMatched) => {

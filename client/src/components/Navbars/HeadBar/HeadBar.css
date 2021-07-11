@@ -50,6 +50,7 @@
   color: #fff;
   padding: 5px 10px;
   border-radius: 3px;
+  z-index: 1000;
 }
 .headerBarProfile {
   padding-right: 50px;

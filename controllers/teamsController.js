@@ -2,8 +2,11 @@ const Team = require("../model/teamsModel");
 const User = require("../model/userModel");
 const { v4 } = require("uuid");
 
+// Creating a new Team
 exports.createTeams = async (req, res) => {
   const creatorId = req.body.creatorId ? req.body.creatorId : req.user._id;
+
+  // Searching the creator of the team
   let foundSender;
   try {
     foundSender = await User.findById(creatorId);
@@ -12,14 +15,16 @@ exports.createTeams = async (req, res) => {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
 
+  // Creating new teams
   const newTeam = new Team({
     members: [foundSender],
-    code: v4(),
+    code: v4(), // unique random code for team
     admin: foundSender,
     name: req.body.name,
     description: req.body.description,
   });
 
+  // Saving the team in the DB
   try {
     const savedTeam = await newTeam.save();
     res.status(200).json({ status: true, data: savedTeam });
@@ -28,18 +33,20 @@ exports.createTeams = async (req, res) => {
   }
 };
 
+// Joining an existing team with its code
 exports.joinTeam = async (req, res) => {
-  // console.log(req.body);
+  const memberId = req.body.memberId ? req.body.memberId : req.user._id;
+
+  // Searching the member in the DB
   let foundMember;
   try {
-    foundMember = await User.findById(req.body.memberId);
+    foundMember = await User.findById(memberId);
     if (!foundMember) res.json({ status: false, message: "User not found" });
   } catch (err) {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
 
-  // console.log(foundMember);
-
+  //  Searching the Team from the DB
   let foundTeam;
   try {
     foundTeam = await Team.findOne({ code: req.body.code });
@@ -48,16 +55,12 @@ exports.joinTeam = async (req, res) => {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
 
-  // console.log(foundTeam);
-  // console.log(foundMember._id);
-  // console.log(foundMember);
-  // console.log(foundTeam.members.includes(foundMember._id));
-  // console.log(foundTeam.members.includes(foundMember));
-
+  // Checking if the member already includes in the teams
   if (foundTeam.members.includes(foundMember._id)) {
     return res.json({ status: false, message: "Already in this team" });
   }
 
+  // Updating the teams by adding a new Member to it
   let updatedTeam;
   try {
     updatedTeam = await Team.findOneAndUpdate(
@@ -75,6 +78,8 @@ exports.joinTeam = async (req, res) => {
 
 exports.getTeams = (req, res) => {
   const userId = req.params.userId ? req.params.userId : req.user._id;
+
+  // Finding a team with userId
   Team.find({ members: { $in: userId } })
     .populate([{ path: "members" }])
     .populate("admin")
@@ -88,6 +93,7 @@ exports.getTeams = (req, res) => {
 };
 
 exports.getTeamById = (req, res) => {
+  // Finding a team with _id
   Team.findById(req.params.teamId)
     .populate([{ path: "members" }])
     .populate("admin")
@@ -99,8 +105,11 @@ exports.getTeamById = (req, res) => {
     });
 };
 
+// Find all the users that are parts of any of the teams the user(the logged in user) is member of
 exports.findContactFromTeams = async (req, res) => {
   const userId = req.params.userId ? req.params.userId : req.user._id;
+
+  // Finding all the teams the user it member of
   let foundTeams = [];
   try {
     foundTeams = await Team.find({ members: { $in: userId } });
@@ -109,17 +118,18 @@ exports.findContactFromTeams = async (req, res) => {
     res.json(err);
   }
 
-  console.log(foundTeams);
   let users = [];
-  // if (foundTeams) {
+
+  // Finding the _id of all the members in the found Teams
+  // And Pushing it in the users array
   foundTeams.forEach((team) => {
     team.members.forEach((member) => {
       if (member != req.body.userId && !users.includes(member))
         users.push(member);
     });
   });
-  // }
 
+  // Finding the users whose _id is in users array
   let foundUsers;
   try {
     foundUsers = await User.find({ _id: { $in: users } }).sort("name");
@@ -128,14 +138,17 @@ exports.findContactFromTeams = async (req, res) => {
     res.json(err);
   }
 
+  // filtering the users by excluding the present user(the logged in user)
   foundUsers = foundUsers.filter((user) => user._id != req.params.userId);
-  console.log(foundUsers);
 
   res.status(200).json({ status: true, data: foundUsers });
 };
 
+// Search users by "name" that are parts of any of the teams the user(the logged in user) is member of
 exports.searchContactFromTeams = async (req, res) => {
   const userId = req.params.userId ? req.params.userId : req.user._id;
+
+  // Finding all the teams the user it member of
   let foundTeams = [];
   try {
     foundTeams = await Team.find({ members: { $in: userId } });
@@ -144,17 +157,18 @@ exports.searchContactFromTeams = async (req, res) => {
     res.json(err);
   }
 
-  console.log(foundTeams);
   let users = [];
-  // if (foundTeams) {
+
+  // Finding the _id of all the members in the found Teams
+  // And Pushing it in the users array
   foundTeams.forEach((team) => {
     team.members.forEach((member) => {
       if (member != req.body.userId && !users.includes(member))
         users.push(member);
     });
   });
-  // }
 
+  // Finding the users whose _id is in users array
   let foundUsers;
   try {
     foundUsers = await User.find({
@@ -166,7 +180,7 @@ exports.searchContactFromTeams = async (req, res) => {
     res.json(err);
   }
 
-  console.log(foundUsers);
+  // filtering the users by excluding the present user(the logged in user)
   foundUsers = foundUsers.filter((user) => user._id != req.params.userId);
 
   res.status(200).json({ status: true, data: foundUsers });

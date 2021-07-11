@@ -2,6 +2,7 @@ const Message = require("../model/teamsMessagesModel");
 const Team = require("../model/teamsModel");
 const User = require("../model/userModel");
 
+// Creating new Message for Teams chat between multiple users
 exports.addMessage = async (req, res) => {
   const senderId = req.body.senderId ? req.body.senderId : req.user._id;
   let foundTeam;
@@ -12,6 +13,7 @@ exports.addMessage = async (req, res) => {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
 
+  // Searching sender from DB
   let foundUser;
   try {
     foundUser = await User.findById(senderId);
@@ -21,14 +23,14 @@ exports.addMessage = async (req, res) => {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
 
-  // console.log(foundUser);
-
+  // Creating new Message
   const newMessage = new Message({
     ...req.body,
     teamsId: foundTeam,
     sender: foundUser,
   });
 
+  // Saving new message
   newMessage
     .save()
     .then((savedMessage) => {
@@ -40,6 +42,7 @@ exports.addMessage = async (req, res) => {
     });
 };
 
+// Getting all the messages for a particular team
 exports.getMessage = (req, res) => {
   // console.log(req.params.teamId);
   Message.find({ teamsId: req.params.teamId })

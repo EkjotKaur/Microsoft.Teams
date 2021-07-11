@@ -1,9 +1,11 @@
+// Requiring functions from controller
 const { signup, login } = require("../controllers/userController");
-
 const router = require("express").Router();
-// const isLoggedIn = require("../middleware/isLoggedIn");
 
+// SignUp
 router.post("/signup", signup);
+
+// Login
 router.post("/login", login);
 
 module.exports = router;

@@ -7,6 +7,7 @@
   max-height: 50vh;
   overflow-y: scroll;
   /* padding: 10px; */
+  z-index: 10000;
 }
 .SearchUserDetails {
   display: flex;
@@ -14,6 +15,7 @@
   border-bottom: 1px solid #222;
   padding: 7px 10px;
   cursor: pointer;
+  z-index: 10000;
 }
 .SearchUserDetails:last-child {
   border: none;

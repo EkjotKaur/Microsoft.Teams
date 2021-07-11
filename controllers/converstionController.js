@@ -1,8 +1,11 @@
 const Conversation = require("../model/conversationModel");
 const User = require("../model/userModel");
 
+//  Creating new conversation
 exports.newConversation = async (req, res) => {
   const senderId = req.body.senderId ? req.body.senderId : req.user._id;
+
+  // Searching sender from DB
   let foundSender;
   try {
     foundSender = await User.findById(senderId);
@@ -11,6 +14,7 @@ exports.newConversation = async (req, res) => {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
 
+  // Searching reciever from DB
   let foundReciever;
   try {
     foundReciever = await User.findById(req.body.recieverId);
@@ -19,10 +23,13 @@ exports.newConversation = async (req, res) => {
   } catch (err) {
     res.status(500).json({ status: false, message: "Something went wrong" });
   }
+
+  // Creating new Conversation
   const newConversation = new Conversation({
     members: [foundSender, foundReciever],
   });
 
+  // Saving the conversation in the DB
   try {
     const savedConservation = await newConversation.save();
     res.status(200).json({ status: true, data: savedConservation });
@@ -31,8 +38,11 @@ exports.newConversation = async (req, res) => {
   }
 };
 
+// Getting conversations for a user
 exports.getConversation = (req, res) => {
   const userId = req.params.userId ? req.params.userId : req.user._id;
+
+  // Finding conversations for a user and populating all its members i.e the two users btw conversation is occuring
   Conversation.find({ members: { $in: userId } })
     .populate([{ path: "members" }])
     .sort("-lastMessage")
@@ -44,6 +54,7 @@ exports.getConversation = (req, res) => {
     });
 };
 
+// Searching conversation two particular users 
 exports.searchConversation = (req, res) => {
   const user1 = req.body.user1 ? req.body.user1 : req.user._id;
   Conversation.findOne({ members: { $all: [user1, req.body.user2] } })
