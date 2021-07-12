@@ -4,12 +4,13 @@
 
 !["home page"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Home%20Page.png)
 
----
-
-Project Link: 
-Demo Video Link: 
+  <!-- Project Link: ["link"](link, project link)
+  <br>
+  Demo Video Link:  -->
 
 <br>
+
+---
 
 ## **Tech Stack Used**
 
@@ -32,13 +33,15 @@ Demo Video Link:
 
 <br>
 
+---
+
 ## **Features**
 
 ---
 
 - ### **Mean Feature - Video Calling between two users**
 
-  - Two users in contact can connect with each other throught video calling facility.
+  - Two users in contact can connect with each other through video calling facility.
   - This Video Calling feature is implemented using simple-peer webRTC technolgy and socket.io.
 
 - ### **Second Priority Feature - Chat between two users**
@@ -53,6 +56,8 @@ Demo Video Link:
 
 <br>
 
+---
+
 ## **Additional Features**
 
 ---
@@ -61,8 +66,6 @@ Demo Video Link:
    - Signup feature with encrypted password (hashed + salted)
    - Implemented using bcrypt
 
-  <br>
-
 !["signup"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Signup.png)
 
 2. #### **Login / Sign Out**
@@ -70,19 +73,19 @@ Demo Video Link:
 3. #### **Create New Personal Chat**
 
    - Users can start a new chat with the existing contacts.
+   - Contacts here means all the users that exits in a team joined/created by the user
 
 4. #### **Teams Page**
-     <br>
+   - All the teams which the user is memeber of are listed
 
-  !["teams"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Teams.png)
-
+!["teams"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Teams.png)
 
 5. #### **Create Teams**
 
    - Users can create new teams and share the team code with the other users to join
-   <br>
+     <br>
 
-  !["Create Teams"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/CreateTeam.png)
+!["Create Teams"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/CreateTeam.png)
 
 6. #### **Join Teams**
    - User can join an existing teams using team code.
@@ -102,33 +105,56 @@ Demo Video Link:
 10. #### **Audio Toggle**
     - Users can switch on and off there auido.
 11. #### **Create Notes For Teams**
-
     - Users can create new notes and view create by other users in the teams.
 
 !["Notes"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Notes.png)
 
 12. #### **Search Users**
+    - User can search the contacts from the search bar
 
 !["Search"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Search.png)
 
 13. #### **Contacts Page**
+    - All the contacts of the user are displayed here
+    - Contacts means all the users common to some of the teams in which the user(logged in) is the memeber
 
 !["signup"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Contact.png)
 
 14. #### **UI Similar to Teams**
-    <br>
+    - The site has an UI similar to the Microsoft Teams
+      <br>
 15. #### **Responsive UI**
+    - The site is responsive
 
 !["signup"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Responsive.png)
 
+<br>
+
+---
 
 ## **Agile Methodology**
 
-I mananged my work
+---
+
+I mananged my work by making a list of tasks to be completed on a specified date, so that whole project could be successfully completed. It need to practice management from the beginning to achieve a result
+<br>
+Is this process I seperated the task into tiny subtasks.
+
+- Starting with the project firstly, I added the video calling feature in the initial stage.
+- Then I implemented the authentication task for signup and login
+- After this I tried to move on to group video calling feature (max. 4 users only) as well.
+- I implemented real time chat feature for two user
+- Then I could advance it to group chat
+- Afterwards I came up with teams feature (creating/joining team)
+- Then I added some more features to the video calling like audio and video toggle.
+- I also came up with some bugs in my code. So they became my more prior task to be solved.
+- I was able to add a feature of creating and viewing notes which was not a part of MS Teams.
+- At the end I added a leave team.
+- There are many more features to be worked upon and this journey would carry on
 
 <br>
 
-  !["trello"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Trello-2.png)
+!["trello"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Trello-2.png)
 
 <!-- > Blockquote
 
