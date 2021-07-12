@@ -118,6 +118,15 @@
 
 !["signup"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Responsive.png)
 
+
+## **Agile Methodology**
+
+I mananged my work
+
+<br>
+
+  !["trello"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Trello.png)
+
 <!-- > Blockquote
 
 ## Heading 2
