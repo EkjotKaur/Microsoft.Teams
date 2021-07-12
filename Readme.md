@@ -6,6 +6,9 @@
 
 ---
 
+Project Link: 
+Demo Video Link: 
+
 <br>
 
 ## **Tech Stack Used**
@@ -125,7 +128,7 @@ I mananged my work
 
 <br>
 
-  !["trello"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Trello.png)
+  !["trello"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Trello-2.png)
 
 <!-- > Blockquote
 

@@ -12,7 +12,7 @@ import {
   Switch,
   useHistory,
 } from "react-router-dom";
-import CreateRoom from "./components/CreateRoom";
+// import CreateRoom from "./components/CreateRoom";
 import Room from "./components/Room";
 import Chat from "./components/Chatting/Chat";
 import Teams from "./components/Teams/Teams";
@@ -54,13 +54,6 @@ const Routing = () => {
       setTimeout(() => setSpinner(false), 1000);
   }, []);
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     setUser(state);
-  //   } else if (user && !state) {
-  //     setUser(null);
-  //   }
-  // }, [state]);
   useEffect(() => {
     const userTemp = JSON.parse(localStorage.getItem("user"));
     setUser(userTemp);
@@ -74,7 +67,7 @@ const Routing = () => {
       {(state || user) && <HeadBar />}
       {(state || user) && <SideNavbar />}
       <Switch>
-        {(state || user) && <Route path="/" exact component={CreateRoom} />}
+        {/* {(state || user) && <Route path="/" exact component={CreateRoom} />} */}
         {(state || user) && <Route path="/room/:roomID" component={Room} />}
         {(state || user) && (
           <Route path="/chat">
