@@ -1,4 +1,4 @@
-![**login**](https://teams-microsoft-ms.herokuapp.com/static/media/Microsoft%20Logo.564db913.svg)
+!["logo"](https://teams-microsoft-ms.herokuapp.com/static/media/Microsoft%20Logo.564db913.svg)
 
 # **Microsoft Teams**
 
@@ -48,8 +48,10 @@
 ---
 
 1. #### **Sign up**
-    * Signup feature with encrypted password 
+    * Signup feature with encrypted password (hashed + salted)
     * Implemented using bcrypt
+
+    !["signup"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/images/Chat/video-camera.png)
 
 2. #### **Login / Sign Out**
     * Login feature help to give access to the team and user can chat, video call, create and create and join teams and create notes 
@@ -74,6 +76,7 @@
     * Users can create new notes and view create by other users in the teams.
 13. #### **Search Users**
 14. #### **Contacts Page**
+15. #### **UI Similar to Teams**
 15. #### **Responsive UI**
 
 <!-- > Blockquote
