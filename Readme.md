@@ -26,7 +26,7 @@
   - MongoDB (Database)
   - Socket.io
 
-* ### _Client_
+* ### _Client Side_
   - React.js
   - Socket.io-client
   - Simple-peer
@@ -39,7 +39,7 @@
 
 ---
 
-- ### **Mean Feature - Video Calling between two users**
+- ### **Main Feature - Video Calling between two users**
 
   - Two users in contact can connect with each other through video calling facility.
   - This Video Calling feature is implemented using simple-peer webRTC technolgy and socket.io.
@@ -136,21 +136,21 @@
 
 ---
 
-I mananged my work by making a list of tasks to be completed on a specified date, so that whole project could be successfully completed. It need to practice management from the beginning to achieve a result
+I managed work by making a list of tasks to be completed on a specified date, so that whole project could be successfully completed. I had to practice management from the beginning to achieve the result
 <br>
-Is this process I seperated the task into tiny subtasks.
+In this process I separated the task into tiny subtasks.
 
 - Starting with the project firstly, I added the video calling feature in the initial stage.
 - Then I implemented the authentication task for signup and login
-- After this I tried to move on to group video calling feature (max. 4 users only) as well.
-- I implemented real time chat feature for two user
-- Then I could advance it to group chat
-- Afterwards I came up with teams feature (creating/joining team)
+- After this I tried to move on to the group video calling feature (max. 4 users only) as well.
+- I implemented real time chat feature for two users.
+- Then I also implemented it for mutiple users as well (group chat).
+- Later I came up with teams feature (creating/joining team)
 - Then I added some more features to the video calling like audio and video toggle.
-- I also came up with some bugs in my code. So they became my more prior task to be solved.
-- I was able to add a feature of creating and viewing notes which was not a part of MS Teams.
-- At the end I added a leave team.
-- There are many more features to be worked upon and this journey would carry on
+- I had to deal with some bugs. So they became my more priorty task to be solved.
+- I've added a few additional feature of creating and viewing notes.
+- Last but not the least, I added a leave team funtionality.
+- Still there's so much to be worked upon and perhaps this journey won't end.
 
 <br>
 
