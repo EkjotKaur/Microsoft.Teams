@@ -11,9 +11,11 @@ const JoinTeams = (props) => {
   const { state, dispatch } = useContext(UserContext);
   const [code, setCode] = useState();
 
+  // Function to join a team
   const JoinTeam = async () => {
     if (!code) {
       console.log("Enter Code");
+      toast(`Enter teams`);
       return;
     }
     try {
@@ -24,7 +26,6 @@ const JoinTeams = (props) => {
       if (!res.data.status) console.log(res.data.message);
       else {
         props.newTeamsHadler(res.data.data);
-        console.log(res.data);
         history.push("/teams");
       }
     } catch (err) {

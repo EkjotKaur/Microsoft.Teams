@@ -23,11 +23,13 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // When the user connects it emits itself to the backend
+    // so that user can join a room (send from client to server)
     socket.current.emit("addUserToChat", state._id);
   }, [state]);
 
   useEffect(() => {
-    // console.log(state._id);
+    // Get all conversations (personal chat) with the user to be displayed on the left
     chatApi
       .getConversation(state._id)
       .then((result) => {
@@ -51,10 +53,10 @@ const Chat = () => {
 
   useEffect(() => {
     if (currentChat) {
+      // Get message for the selected chat
       chatApi
         .getMessage(currentChat._id)
         .then((result) => {
-          // console.log(result.data);
           if (result.data.status == "false") console.log(result.data.message);
           else setMessages(result.data.data);
         })
@@ -72,10 +74,12 @@ const Chat = () => {
     }
   }, [currentChat]);
 
+  // Function to check if the id the logged in user _id or not
   const checkOwn = (id) => {
     return id === state._id;
   };
 
+  // When a message is sent
   const onSubmitHandler = (e) => {
     if (!newMessage) return;
     const message = {
@@ -88,6 +92,7 @@ const Chat = () => {
       (memeber) => memeber._id !== state._id
     );
 
+    // Sends to message to backend to be stored in DB
     chatApi
       .newMessage(message)
       .then((result) => {
@@ -105,6 +110,7 @@ const Chat = () => {
         );
       });
 
+    // Send the message to the server to broadcast it in the room
     socket.current.emit("sendMessage", {
       senderId: state._id,
       receiverId: receiver._id,
@@ -113,22 +119,20 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    // when a message is recived from the other user in the room
     socket.current.on("getMessage", (data) => {
-      console.log(data);
       const newdData = {
         sender: data.sender,
         text: data.text,
         createdAt: Date.now(),
       };
       setMessages((prev) => {
-        console.log(prev, newdData);
         return [...prev, newdData];
       });
     });
   }, []);
 
-  console.log(messages);
-
+  // Function to scroll chats to the bottom
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);

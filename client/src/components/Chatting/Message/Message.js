@@ -1,12 +1,12 @@
 import React from "react";
 import "./Message.css";
 import { format } from "timeago.js";
-// import
 
+// returns a single message of the chat
 const Message = (props) => {
   return (
     <div className={props.own ? "message own" : "message"}>
-      {!props.own && window.innerWidth > 900 &&  (
+      {!props.own && window.innerWidth > 900 && (
         <div className="messagePic">
           {props.message.sender.name.match(/\b(\w)/g).join("")}
         </div>

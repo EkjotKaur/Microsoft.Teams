@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
+// Create new notes
 const CreateNotesModal = (props) => {
   return (
     <New
@@ -15,43 +16,32 @@ const CreateNotesModal = (props) => {
   );
 };
 
+//  Modal
 const MyVerticallyCenteredModal = (props) => {
   const [heading, setHeading] = useState();
   const [description, setDescription] = useState();
-
-  // const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
 
-  console.log(props.teamsId);
-  console.log(heading, description);
-
+  // Function to create notes
   const createTeam = async () => {
     console.log(heading, description);
     if (!heading || !description) {
       console.log("Enter Name");
       toast("Enter all the details");
     }
-    console.log({
-      teamId: props.teamsId,
-      heading,
-      description,
-    });
+
     try {
-      console.log("wehf");
       const res = await notesApi.createNotes({
         teamId: props.teamsId,
         heading,
         description,
       });
       props.newTeamsHadler(res.data.data);
-      console.log(res.data.data);
       setHeading();
       setDescription();
       props.onHide();
-      // history.push("/teams");
     } catch (err) {
       console.log(err);
-      console.log(err.response);
       toast(
         `${
           err.response && err.response.data
@@ -110,10 +100,10 @@ const MyVerticallyCenteredModal = (props) => {
   );
 };
 
+// Function to active and close modal
 function New(props) {
   const [modalShow, setModalShow] = React.useState(false);
 
-  console.log(props.teamsId);
   return (
     <>
       <ToastContainer />

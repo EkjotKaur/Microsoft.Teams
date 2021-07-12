@@ -4,8 +4,8 @@ import MSlogo from "../../assets/images/Microsoft Logo.svg";
 import HomeImg from "../../assets/images/Home/Home.webp";
 import { useHistory } from "react-router-dom";
 
-// import
 
+// Home page of the site
 const Home = (props) => {
   const history = useHistory();
   return (

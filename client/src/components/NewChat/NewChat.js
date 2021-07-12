@@ -15,6 +15,7 @@ const NewChat = (props) => {
   const [newMessage, setMessage] = useState();
   const history = useHistory();
 
+  // When a message (first) is created, it creates a new conversation
   const onSubmitHandler = async (e) => {
     if (!newMessage) {
       return;
@@ -38,20 +39,13 @@ const NewChat = (props) => {
     }
 
     if (createConversationData.data.status == "false") {
-      console.log(createConversationData.data.message);
       return;
     }
-
-    console.log("Sending");
     const message = {
       senderId: state._id,
       text: newMessage,
       conversationId: createConversationData.data.data._id,
     };
-
-    // const receiver = currentChat.members.find(
-    //   (memeber) => memeber._id !== state._id
-    // );
 
     chatApi
       .newMessage(message)
@@ -76,17 +70,8 @@ const NewChat = (props) => {
     <div className="NewChat">
       <ToastContainer />
       <ChatBar name={userName} currentUser={state} video={false} />
-      {/* <div className="chatBox">
-        <div className="chatBoxWrapper"> */}
       <div className="newChat">
-        <div className="chatBoxTop">
-          {/* {messages.map((message, i) => (
-              <div key={message._id ? message._id : i} ref={scrollRef}>
-                <Message own={checkOwn(message.sender._id)} message={message} />
-              </div>
-            ))} */}
-        </div>
-
+        <div className="chatBoxTop"></div>
         <div className="chatBoxBottom">
           <textarea
             className="chatMessageInput"
@@ -100,8 +85,6 @@ const NewChat = (props) => {
             <img src={SendImg} alt="Send" />
           </div>
         </div>
-        {/* </div>
-      </div> */}
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-// import "../Authentication.css";
-// import MsLogo from "../../../assets/images/Microsoft Logo.svg";
+import React from "react";
 
+// Returns the inputs taken through authentications
 const Details = (props) => {
   return (
     <div className="details">
@@ -18,7 +17,6 @@ const Details = (props) => {
               <input
                 name={props.name}
                 onChange={(e) => {
-                  // console.log(props.onChangeHandler, e);
                   return props.onChangeHandler(e);
                 }}
                 type="radio"
@@ -39,7 +37,6 @@ const Details = (props) => {
           className="authInput"
           placeholder={props.placeholder}
           onChange={(e) => {
-            // console.log(props.onChangeHandler, e);
             return props.onChangeHandler(e);
           }}
           value={props.value}

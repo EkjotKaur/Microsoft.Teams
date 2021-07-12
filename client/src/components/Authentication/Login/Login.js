@@ -19,12 +19,14 @@ const Login = (props) => {
   const [credentials, setCredentials] = useState(initialCredentials);
   const [step, setStep] = useState(1);
 
+  // on changing the input value this function is called
   const onChangeHandler = (e) => {
     setCredentials((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
+  // changing the slide for login
   const changeStep = () => {
     if (step === 1) {
       if (
@@ -37,6 +39,7 @@ const Login = (props) => {
     }
   };
 
+  // When user press the submit button to login
   const onSubmitHandler = async () => {
     if (!credentials.password) {
       return;
@@ -48,18 +51,14 @@ const Login = (props) => {
         password: credentials.password,
       })
       .then((result) => {
-        console.log(result);
-
         localStorage.setItem("jwt", result.data.data.token);
         localStorage.setItem("user", JSON.stringify(result.data.data));
         dispatch({ type: "USER", payload: result.data.data });
-        // history.push("/chat");
       })
       .catch((err) => {
         console.log(err);
         setCredentials(initialCredentials);
         setStep(1);
-        console.log(err.response, err.response.data);
         toast(
           `${
             err.response && err.response.data

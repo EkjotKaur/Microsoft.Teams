@@ -18,12 +18,14 @@ const Signup = (props) => {
   const [credentials, setCredentials] = useState(initialCredentials);
   const [step, setStep] = useState(1);
 
+  // on manage change of input values
   const onChangeHandler = (e) => {
     setCredentials((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
+  // changing the slide for login
   const changeStep = () => {
     if (step === 1) {
       if (
@@ -40,6 +42,7 @@ const Signup = (props) => {
     }
   };
 
+  // When user press the submit button to login
   const onSubmitHandler = async () => {
     if (!credentials.password) {
       return;
@@ -53,12 +56,7 @@ const Signup = (props) => {
         name: credentials.name,
       })
       .then((result) => {
-        console.log(result);
-        if (result.status == false) console.log(result.message);
-        else {
-          console.log(result.data);
-          history.push("/login");
-        }
+        history.push("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -73,8 +71,6 @@ const Signup = (props) => {
         );
       });
   };
-
-  console.log(credentials);
 
   return (
     <div className="auth">

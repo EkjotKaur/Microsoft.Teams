@@ -5,19 +5,18 @@ import { useHistory } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-// import
-
+// Common bar used in all the chat and notes pages
 const ChatBar = (props) => {
   const [user, setUser] = useState();
   const [copied, setCopied] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
+    // To get the other user from personal chat
     if (props.conversation) {
       const friendId = props.conversation.members.find(
         (m) => m._id !== props.currentUser._id
       );
-      console.log(friendId);
       setUser(friendId);
     }
   }, [props.conversation, props.currentUser._id]);
@@ -134,7 +133,11 @@ const ChatBar = (props) => {
             </div>
           </div>
         )}
-        {props.leave && <div className="leaveTeam" onClick={() => props.onLeave()}>Leave</div>}
+        {props.leave && (
+          <div className="leaveTeam" onClick={() => props.onLeave()}>
+            Leave
+          </div>
+        )}
       </div>
     </div>
   );

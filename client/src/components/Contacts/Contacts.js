@@ -14,6 +14,7 @@ const Contacts = (props) => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
 
+  // Check if the conversation exists between the users or not
   const gotoConversation = (userId, userName) => {
     console.log(userId);
     chatApi
@@ -41,6 +42,7 @@ const Contacts = (props) => {
       });
   };
 
+  // Get all the contacts from the backend
   useEffect(() => {
     chatApi
       .getContactFromTeams(state._id)

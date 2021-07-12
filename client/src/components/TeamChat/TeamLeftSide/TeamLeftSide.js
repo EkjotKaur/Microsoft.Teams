@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../App";
 import "./TeamLeftSide.css";
-// import
 
+// Left side of team
 const TeamLeftSide = ({team}) => {
   const [user, setUser] = useState();
   const { state, dispatch } = useContext(UserContext);

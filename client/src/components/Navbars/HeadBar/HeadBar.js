@@ -12,6 +12,7 @@ const HeadBar = (props) => {
   const history = useHistory();
   console.log(search);
 
+  // function to clear the search
   const clearResultHandler = () => setSearch();
 
   return (
@@ -45,9 +46,6 @@ const HeadBar = (props) => {
           )}
           {state && (
             <div className="headerBarProfile">
-              {/* <div className="headerBarProfileImg">
-            {state.name.match(/\b(\w)/g).join("")}
-          </div> */}
               <Dropdown>
                 <Dropdown.Toggle
                   className="headerBarProfileImg"
@@ -74,9 +72,9 @@ const HeadBar = (props) => {
                   <div
                     className="signout"
                     onClick={() => {
+                      // function to clear the user data in the local storage and state
                       localStorage.clear();
                       dispatch({ type: "CLEAR" });
-                      // history.push("/");
                     }}
                   >
                     Sign Out

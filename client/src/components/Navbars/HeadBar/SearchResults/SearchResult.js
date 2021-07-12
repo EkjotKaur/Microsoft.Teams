@@ -10,6 +10,8 @@ const SearchResults = ({ search, onClearHandler }) => {
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
 
+  // Function to search all the contacts
+  // Contacts means all the users that exits in any of the teams
   useEffect(() => {
     chatApi
       .searchContactFromTeams({ name: search }, state._id)
@@ -31,14 +33,12 @@ const SearchResults = ({ search, onClearHandler }) => {
       });
   }, [search]);
 
-  console.log(result);
 
+  // To check if conversation exists between the users
   const gotoConversation = (userId, userName) => {
-    console.log(userId);
     chatApi
       .searchConversation({ user1: state._id, user2: userId })
       .then((result) => {
-        console.log(result.data);
         if (result.data.state == "false") console.log(result.data.message);
         else {
           onClearHandler();

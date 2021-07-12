@@ -11,14 +11,13 @@ const Notes = (props) => {
   const [newNotes, setNewNotes] = useState();
   const [notes, setNotes] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
-  console.log(props.teamsId);
 
   useEffect(() => {
+    // Function to get all notes for the team
     const newFunc = async () => {
       try {
         const res = await noteApi.getNotes(props.teamsId);
         setNotes(res.data.data);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
         toast(
@@ -34,10 +33,9 @@ const Notes = (props) => {
   }, [props.teamsId]);
 
   useEffect(() => {
+    // add new note into the notes array
     if (newNotes) setNotes((notes) => [newNotes, ...notes]);
   }, [newNotes]);
-
-  console.log(notes);
 
   return (
     <div className="Notes">
@@ -46,7 +44,13 @@ const Notes = (props) => {
         newTeamsHadler={(team) => setNewNotes(team)}
         teamsId={props.teamsId}
       />
-      <div className={window.innerHeight < window.innerWidth ? "allNotes" : "allNotesFullWidth"}>
+      <div
+        className={
+          window.innerHeight < window.innerWidth
+            ? "allNotes"
+            : "allNotesFullWidth"
+        }
+      >
         {notes.map((note) => (
           <ViewNote note={note} />
         ))}

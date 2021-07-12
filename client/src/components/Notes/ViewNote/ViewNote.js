@@ -1,8 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-// import "./sidebarHeading.css";
 
-// import
+// Full note is visible (Modal)
 const ModalFunction = (props) => {
   return (
     <Modal
@@ -29,6 +28,7 @@ const ModalFunction = (props) => {
   );
 };
 
+// To activate and close the modal
 const ViewNote = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
 

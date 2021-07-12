@@ -17,6 +17,7 @@ const CreateTeamsPage = (props) => {
     setNewTeams(team);
   };
 
+  // Get Teams
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +27,6 @@ const CreateTeamsPage = (props) => {
           console.log(res.data);
           setTeams(res.data.data);
 
-          // history.push("/teams");
         }
       } catch (err) {
         console.log(err);

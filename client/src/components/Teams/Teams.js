@@ -30,7 +30,7 @@ const Teams = (props) => {
           console.log(res.data);
           setTeams(res.data.data);
           // history.push("/teams");
-          setIsLoading(false)
+          setIsLoading(false);
         }
       } catch (err) {
         console.log(err);
@@ -41,13 +41,13 @@ const Teams = (props) => {
               : "Something went wrong."
           }`
         );
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
     fetchData();
   }, [state, setTeams, newTeams]);
 
-  if(isLoading) return <Loading />
+  if (isLoading) return <Loading />;
   return (
     <div
       className={
@@ -57,14 +57,12 @@ const Teams = (props) => {
       <ToastContainer />
       <div className="teamsNav">
         <div className="teamsOnTeams">Teams</div>
-        {/* <div> */}
         <div
           className="joinORCreateTeamsBTN"
           onClick={() => history.push("/createTeams")}
         >
           Join or Create Team
         </div>
-        {/* </div> */}
       </div>
       {!teams || teams.length === 0 ? (
         <div

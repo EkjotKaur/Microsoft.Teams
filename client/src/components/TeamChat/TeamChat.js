@@ -26,9 +26,9 @@ const TeamChat = () => {
   const [active, setActive] = useState("Chat");
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
-  console.log(teamId);
 
   useEffect(() => {
+    // When the user connects it emits it to the backend to join the room
     socket.current.emit("add user to teams", {
       userId: state._id,
       name: state.name,
@@ -37,11 +37,10 @@ const TeamChat = () => {
   }, [teamId, state]);
 
   useEffect(() => {
-    // console.log(state._id);
+    // To find teams by id
     chatApi
       .getTeamById(teamId)
       .then((result) => {
-        console.log(result);
         if (result.data.state == "false") console.log(result.data.message);
         else {
           setTeam(result.data.data);
@@ -62,10 +61,10 @@ const TeamChat = () => {
   }, []);
 
   useEffect(() => {
+    // Get all the message fo the teams
     chatApi
       .getTeamsMessage(teamId)
       .then((result) => {
-        console.log(result.data);
         if (result.data.status == "false") console.log(result.data.message);
         else setMessages(result.data.data);
       })
@@ -81,30 +80,26 @@ const TeamChat = () => {
       });
   }, [teamId]);
 
+  // Check if the message is user's own
   const checkOwn = (id) => {
     return id === state._id;
   };
 
+  // When a new message is send
   const onSubmitHandler = (e) => {
     if (!newMessage) {
       return;
     }
-    console.log("Sending");
     const message = {
       senderId: state._id,
       text: newMessage,
       teamId,
     };
 
-    // const receiver = currentChat.members.find(
-    //   (memeber) => memeber._id !== state._id
-    // );
-
+    // message send to the server to check
     chatApi
       .newMessageTeams(message)
       .then((result) => {
-        console.log(result);
-        // if (result.data.room == teamId)
         setMessages([...messages, result.data.data]);
         setNewMessage("");
       })
@@ -118,6 +113,8 @@ const TeamChat = () => {
           }`
         );
       });
+
+    // send message to the server so that it can be broadcasted to all the user in the room
     socket.current.emit("sendMessageToTeams", {
       senderId: state._id,
       text: newMessage,
@@ -125,33 +122,30 @@ const TeamChat = () => {
   };
 
   useEffect(() => {
+    // When a message is recieved
     socket.current.on("getMessageFromTeams", (data) => {
-      console.log(data);
       const newdData = {
         sender: data.sender,
         text: data.text,
         createdAt: Date.now(),
       };
       setMessages((prev) => {
-        console.log(prev, newdData);
         return [...prev, newdData];
       });
     });
   }, []);
 
-  //   console.log(messages);
-
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // When user leaves team
   const leaveHandler = (req, res) => {
     chatApi
       .leaveTeams({
         teamId: teamId,
       })
       .then((res) => {
-        console.log(res.data);
         history.push("/teams");
       })
       .catch((err) => {
@@ -178,7 +172,6 @@ const TeamChat = () => {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <SidebarHeading heading="Team" />
-            {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
             {team && <TeamLeftSide team={team} />}
           </div>
         </div>
