@@ -28,6 +28,7 @@ import NewChat from "./components/NewChat/NewChat";
 import Contacts from "./components/Contacts/Contacts";
 import Home from "./components/Home/Home";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "./components/General/Loading/Loading";
 
 export const UserContext = createContext();
 
@@ -47,6 +48,11 @@ const Routing = () => {
   const { state, dispatch } = useContext(UserContext);
   const [routers, setRouters] = useState(initial);
   const [user, setUser] = useState();
+  const [spinner, setSpinner] = useState(true);
+
+  useEffect(() => {
+      setTimeout(() => setSpinner(false), 1000);
+  }, []);
 
   // useEffect(() => {
   //   if (!user) {
@@ -61,6 +67,8 @@ const Routing = () => {
     if (userTemp) dispatch({ type: "USER", payload: userTemp });
     // log
   }, []);
+
+  if (spinner && (state || user)) return <Loading />;
   return (
     <React.Fragment>
       {(state || user) && <HeadBar />}

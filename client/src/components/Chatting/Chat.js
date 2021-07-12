@@ -10,6 +10,7 @@ import SidebarHeading from "../General/sidebarHeading";
 import SendImg from "../../assets/images/TextBox/send.png";
 import ChatBar from "../General/ChatBar/ChatBar";
 import { ToastContainer, toast } from "react-toastify";
+import Loading from "../General/Loading/Loading";
 
 const Chat = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -19,6 +20,7 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState(null);
   const socket = useRef(io(mainUrl));
   const scrollRef = useRef();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     socket.current.emit("addUserToChat", state._id);
@@ -32,6 +34,7 @@ const Chat = () => {
         if (result.data.state == "false") console.log(result.data.message);
         else {
           setConversations(result.data.data);
+          setIsLoading(false);
         }
       })
       .catch((err) => {
@@ -64,6 +67,7 @@ const Chat = () => {
                 : "Something went wrong."
             }`
           );
+          setIsLoading(false);
         });
     }
   }, [currentChat]);
@@ -129,6 +133,7 @@ const Chat = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  if (isLoading) return <Loading />;
   return (
     <div
       className={

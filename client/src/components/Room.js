@@ -17,6 +17,7 @@ import VideoOn from "../assets/images/VideoCalling/videoOn.png";
 import VideoOff from "../assets/images/VideoCalling/videoOff.png";
 import Leave from "../assets/images/VideoCalling/end-call.png";
 import "./Room.css";
+import Loading from "./General/Loading/Loading";
 // import { createTeam } from "../api/chatting";
 
 // const Container = styled.div``;
@@ -75,6 +76,7 @@ const Room = (props) => {
   const { state, dispatch } = useContext(UserContext);
   const [constraints, setConstraints] = useState({ video: true, audio: true });
   const [enter, setEnter] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   // console.log(peers);
   // console.log(peersRef);
@@ -165,6 +167,7 @@ const Room = (props) => {
         console.log(stream);
         console.log(stream.getVideoTracks());
         console.log(stream.getVideoTracks()[0]);
+        setIsLoading(false);
         userVideo.current.srcObject = stream;
         socketRef.current.emit(
           "join room",
@@ -302,6 +305,7 @@ const Room = (props) => {
       .catch((err) => {
         console.log(err.name + " " + err.message);
         setEnter(-1);
+        setIsLoading(false);
       });
     setEnter();
   }, []);
@@ -348,6 +352,7 @@ const Room = (props) => {
 
   // console.log(peers);
 
+  if(isLoading) return <Loading />
   return (
     <div>
       {enter === 1 && (
@@ -415,9 +420,9 @@ const Room = (props) => {
         </div>
       )}
       {enter === 0 && (
-        <h1 className="videoCalling">LOADINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</h1>
+        <h1 className="videoCallingStart">LOADINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</h1>
       )}
-      {enter === -1 && <h1 className="videoCalling">CANNOT CONNECT</h1>}
+      {enter === -1 && <h1 className="videoCallingStart">CANNOT CONNECT</h1>}
     </div>
   );
 };

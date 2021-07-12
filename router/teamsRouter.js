@@ -5,6 +5,7 @@ const {
   getTeamById,
   findContactFromTeams,
   searchContactFromTeams,
+  leaveTeams,
 } = require("../controllers/teamsController");
 
 const router = require("express").Router();
@@ -29,5 +30,7 @@ router.get("/contacts/:userId", isLoggedIn, findContactFromTeams);
 
 // Searhcing users with name that are part of the team which the logged in user is part of
 router.post("/search/contacts/:userId", isLoggedIn, searchContactFromTeams);
+
+router.patch("/leave", isLoggedIn, leaveTeams);
 
 module.exports = router;

@@ -7,12 +7,13 @@ import { UserContext } from "../../App";
 import io from "socket.io-client";
 import { mainUrl } from "../../api//index";
 import SidebarHeading from "../General/sidebarHeading";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import TeamLeftSide from "./TeamLeftSide/TeamLeftSide";
 import SendImg from "../../assets/images/TextBox/send.png";
 import ChatBar from "../General//ChatBar/ChatBar";
 import { ToastContainer, toast } from "react-toastify";
 import Notes from "../Notes/Notes";
+import Loading from "../General/Loading/Loading";
 
 const TeamChat = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -23,6 +24,8 @@ const TeamChat = () => {
   const [team, setTeam] = useState();
   const teamId = useParams().teamId;
   const [active, setActive] = useState("Chat");
+  const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
   console.log(teamId);
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const TeamChat = () => {
         else {
           setTeam(result.data.data);
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -53,6 +57,7 @@ const TeamChat = () => {
               : "Something went wrong."
           }`
         );
+        setIsLoading(false);
       });
   }, []);
 
@@ -140,6 +145,28 @@ const TeamChat = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const leaveHandler = (req, res) => {
+    chatApi
+      .leaveTeams({
+        teamId: teamId,
+      })
+      .then((res) => {
+        console.log(res.data);
+        history.push("/teams");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast(
+          `${
+            err.response && err.response.data && err.response.data.message
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
+      });
+  };
+
+  if (isLoading) return <Loading />;
   return (
     <div
       className={
@@ -165,6 +192,8 @@ const TeamChat = () => {
             onChangeTab={(type) => setActive(type)}
             tabs={true}
             active={active}
+            leave={true}
+            onLeave={() => leaveHandler()}
           />
           {active === "Chat" && (
             <div className="chatBoxTop">

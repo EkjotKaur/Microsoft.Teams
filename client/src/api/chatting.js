@@ -139,3 +139,14 @@ export const searchConversation = (body) =>
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
+
+export const leaveTeams = (body) =>
+  axios({
+    method: "PATCH",
+    url: `${teamsUrl}/leave`,
+    data: body,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
+    },
+  });

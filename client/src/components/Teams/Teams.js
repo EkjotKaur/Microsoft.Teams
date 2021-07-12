@@ -7,12 +7,14 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../../App";
 import TeamsBox from "./TeamsBox/TeamsBox";
 import { ToastContainer, toast } from "react-toastify";
+import Loading from "../General/Loading/Loading";
 
 const Teams = (props) => {
   const [teams, setTeams] = useState();
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   const [newTeams, setNewTeams] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   const newTeamsHadler = (team) => {
     setNewTeams(team);
@@ -28,6 +30,7 @@ const Teams = (props) => {
           console.log(res.data);
           setTeams(res.data.data);
           // history.push("/teams");
+          setIsLoading(false)
         }
       } catch (err) {
         console.log(err);
@@ -38,11 +41,13 @@ const Teams = (props) => {
               : "Something went wrong."
           }`
         );
+        setIsLoading(false)
       }
     };
     fetchData();
   }, [state, setTeams, newTeams]);
 
+  if(isLoading) return <Loading />
   return (
     <div
       className={

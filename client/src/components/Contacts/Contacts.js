@@ -4,6 +4,7 @@ import * as chatApi from "../../api/chatting";
 import { UserContext } from "../../App";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Loading from "../General/Loading/Loading";
 
 // import
 
@@ -11,6 +12,7 @@ const Contacts = (props) => {
   const [contacts, setContacts] = useState([]);
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
 
   const gotoConversation = (userId, userName) => {
     console.log(userId);
@@ -48,11 +50,22 @@ const Contacts = (props) => {
           return;
         }
         setContacts(result.data.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        toast(
+          `${
+            err.response && err.response.data
+              ? err.response.data.message
+              : "Something went wrong."
+          }`
+        );
+        setIsLoading(false);
       });
   }, []);
+
+  if(isLoading) return <Loading />
   return (
     <div
       className={

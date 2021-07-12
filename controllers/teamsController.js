@@ -115,7 +115,7 @@ exports.findContactFromTeams = async (req, res) => {
     foundTeams = await Team.find({ members: { $in: userId } });
   } catch (err) {
     console.log(err);
-    res.json(err);
+    res.status(500).json({ message: "Something went wrong", status: false });
   }
 
   let users = [];
@@ -135,7 +135,7 @@ exports.findContactFromTeams = async (req, res) => {
     foundUsers = await User.find({ _id: { $in: users } }).sort("name");
   } catch (err) {
     console.log(err);
-    res.json(err);
+    res.status(500).json({ message: "Something went wrong", status: false });
   }
 
   // filtering the users by excluding the present user(the logged in user)
@@ -154,7 +154,7 @@ exports.searchContactFromTeams = async (req, res) => {
     foundTeams = await Team.find({ members: { $in: userId } });
   } catch (err) {
     console.log(err);
-    res.json(err);
+    res.status(500).json({ message: "Something went wrong", status: false });
   }
 
   let users = [];
@@ -177,11 +177,22 @@ exports.searchContactFromTeams = async (req, res) => {
     }).sort("name");
   } catch (err) {
     console.log(err);
-    res.json(err);
+    res.status(500).json({ message: "Something went wrong", status: false });
   }
 
   // filtering the users by excluding the present user(the logged in user)
   foundUsers = foundUsers.filter((user) => user._id != req.params.userId);
 
   res.status(200).json({ status: true, data: foundUsers });
+};
+
+exports.leaveTeams = (req, res) => {
+  const { teamId } = req.body;
+  Team.findByIdAndUpdate(teamId, { $pull: { members: req.user._id } })
+    .then((updatedTeams) => {
+      res.status(200).json({ status: true, data: updatedTeams });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Something went wrong", status: false });
+    });
 };

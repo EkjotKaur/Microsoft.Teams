@@ -7,7 +7,6 @@ import SendImg from "../../assets/images/TextBox/send.png";
 import * as chatApi from "../../api/chatting";
 import { ToastContainer, toast } from "react-toastify";
 
-
 // import
 
 const NewChat = (props) => {

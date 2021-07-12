@@ -50,9 +50,12 @@
 - #### **Create New Personal Chat**
 - #### **Create Teams**
 - #### **Join Teams**
+- #### **Leave Teams**
 - #### **Group Video Call (Teams Video Call)**
 - #### **Group Chat**
 - #### **Video Toggle**
+- #### **Audio Toggle**
+- #### **Create Notes For Teams**
 - #### **Audio Toggle**
 - #### **Search Users**
 - #### **Contacts Page**
