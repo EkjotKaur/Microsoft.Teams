@@ -7,18 +7,20 @@
 <br>
 
 ## **Tech Stack Used**
----
-* #### *Language*
-    * JavaScript
 
-- #### _Server Side_
+---
+
+- #### _Language_
+  - JavaScript
+
+* #### _Server Side_
 
   - Node.js
   - Express.js
   - MongoDB
   - Socket.io
 
-- ### _Client_
+* ### _Client_
   - React.js
   - Socket.io-client
   - Simple-peer
@@ -45,21 +47,34 @@
 
 ---
 
-- #### **Signup**
-- #### **Login**
-- #### **Create New Personal Chat**
-- #### **Create Teams**
-- #### **Join Teams**
-- #### **Leave Teams**
-- #### **Group Video Call (Teams Video Call)**
-- #### **Group Chat**
-- #### **Video Toggle**
-- #### **Audio Toggle**
-- #### **Create Notes For Teams**
-- #### **Audio Toggle**
-- #### **Search Users**
-- #### **Contacts Page**
-- #### **Responsive UI**
+1. #### **Sign up**
+    * Signup feature with encrypted password 
+    * Implemented using bcrypt
+
+2. #### **Login / Sign Out**
+    * Login feature help to give access to the team and user can chat, video call, create and create and join teams and create notes 
+3. #### **Create New Personal Chat**
+    * Users can start a new chat with the existing contacts.
+4. #### **Create Teams**
+    * Users can create new teams and share the team code with the other users to join
+5. #### **Join Teams**
+    * User can join an existing teams using team code.
+6. #### **Leave Teams**
+    * User can exit an joined team
+7. #### **Group Video Call (Teams Video Call)**
+    * Users in the team can join a group video chat (maximum 4 members)
+8. #### **Group Chat**
+    * Users can chat in the team (group)
+    * This is implemented using socket.io
+9. #### **Video Toggle**
+    * Users can switch on and off there video.
+10. #### **Audio Toggle**
+    * Users can switch on and off there auido.
+11. #### **Create Notes For Teams**
+    * Users can create new notes and view create by other users in the teams.
+13. #### **Search Users**
+14. #### **Contacts Page**
+15. #### **Responsive UI**
 
 <!-- > Blockquote
 
