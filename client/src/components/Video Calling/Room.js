@@ -8,26 +8,23 @@ import React, {
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
-import { mainUrl } from "../api/index";
+import { mainUrl } from "../../api/index";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../App.js";
-import Mute from "../assets/images/VideoCalling/mute.png";
-import Unmute from "../assets/images/VideoCalling/unmute.png";
-import VideoOn from "../assets/images/VideoCalling/videoOn.png";
-import VideoOff from "../assets/images/VideoCalling/videoOff.png";
-import Leave from "../assets/images/VideoCalling/end-call.png";
+import { UserContext } from "../../App.js";
+import Mute from "../../assets/images/VideoCalling/mute.png";
+import Unmute from "../../assets/images/VideoCalling/unmute.png";
+import VideoOn from "../../assets/images/VideoCalling/videoOn.png";
+import VideoOff from "../../assets/images/VideoCalling/videoOff.png";
+import Leave from "../../assets/images/VideoCalling/end-call.png";
 import "./Room.css";
-import Loading from "./General/Loading/Loading";
-// import { createTeam } from "../api/chatting";
-
-// const Container = styled.div``;
+import Loading from "./../General/Loading/Loading";
 
 const StyledVideo = styled.video``;
 
+// Video of other users
 const Video = (props) => {
   const ref = useRef();
   const [constraints, setConstraints] = useState(props.constraints);
-  // console.log(props);
 
   useEffect(() => {
     props.peer.on("stream", (stream) => {
@@ -38,7 +35,6 @@ const Video = (props) => {
     setConstraints(props.constraints);
   }, [props]);
 
-  // console.log(constraints);
   useEffect(() => {
     setConstraints(props.constraints);
   }, [props.constraints]);
@@ -78,11 +74,7 @@ const Room = (props) => {
   const [enter, setEnter] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  // console.log(peers);
-  // console.log(peersRef);
-
-  // console.log(socketRef);
-
+  // Function to create new peer connection (when the user itself joins)
   const createPeer = (userToSignal, callerID, constraints, stream) => {
     const peer = new Peer({
       initiator: true,
@@ -103,6 +95,7 @@ const Room = (props) => {
     return peer;
   };
 
+  // Function to add peers when other users join
   const addPeer = (incomingSignal, callerID, constraints, stream) => {
     const peer = new Peer({
       initiator: false,
@@ -125,9 +118,6 @@ const Room = (props) => {
   };
 
   const addPeersHandler = useCallback((peerObj) => {
-    console.log(peerObj);
-    console.log(peers);
-    const newPeers = peers;
     setPeers((prev) => {
       const newPeers = prev.filter((p) => p.peerID !== peerObj.peerID);
       return [...newPeers, peerObj];
@@ -139,44 +129,35 @@ const Room = (props) => {
 
     setPeers(newPeers);
   };
-  const onVideoHandler = useCallback((payload) => {
-    // const peerObj = peersRef.current.find((p) => p.peerID == payload.id);
-    // if (peerObj) peerObj.constraints = payload.constraints;
 
-    // const prev = peers.filter((p) => p.peerID !== payload.id);
-    console.log(peersRef);
+  const onVideoHandler = useCallback((payload) => {
     setPeers((users) => {
-      console.log(users);
       const peerObj = users.find((p) => p.peerID === payload.id);
-      console.log(peerObj);
       if (peerObj) peerObj.constraints = payload.constraints;
-      console.log(peerObj);
       const prev = users.filter((p) => p.peerID !== payload.id);
-      console.log(prev);
       return [...prev, peerObj];
     });
   }, []);
 
   useEffect(() => {
-    // socketRef.current = io.connect("http://localhost:5000");
-    console.log("USEeffect");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setEnter(1);
-        console.log(stream);
-        console.log(stream.getVideoTracks());
-        console.log(stream.getVideoTracks()[0]);
         setIsLoading(false);
+
+        // Adding the stream to the userVideo Ref
         userVideo.current.srcObject = stream;
+
+        // when the user connects it joins the room (client to server)
         socketRef.current.emit(
           "join room",
           { roomID, name: state.name, userId: state._id },
           (err) => {}
         );
+
+        // Getting all the users(and there video) for the room from the server
         socketRef.current.on("all users", (users) => {
-          // stream.getVideoTracks()[0].enabled = true;
-          // stream.getAudioTracks()[0].enabled = true;
           const peers = [];
           users.forEach((user) => {
             const peer = createPeer(
@@ -198,10 +179,10 @@ const Room = (props) => {
               name: user.name,
             });
           });
-          // setPeers((prev) => peers);
           joinPerrHandler(peers);
         });
 
+        // When a new user joins the video calling room
         socketRef.current.on("user joined", (payload) => {
           const peer = addPeer(
             payload.signal,
@@ -224,62 +205,38 @@ const Room = (props) => {
             name: payload.name,
           };
 
-          // setPeers((users) => [...users, peerObj]);
           addPeersHandler(peerObj);
-          // socketRef.current.emit("videoOff", {
-          //   id: payload.callerID,
-          //   roomID,
-          //   constraints: {
-          //     video: !constraints.video,
-          //     audio: constraints.audio,
-          //   },
-          // setPeers(peersRef.current);
-
-          // stream.getVideoTracks()[0].enabled = constraints.video;
-          // stream.getAudioTracks()[0].enabled = constraints.audio;
         });
 
+        // When the singal is returned from the server
         socketRef.current.on("receiving returned signal", (payload) => {
-          // peersRef.current.forEach((p) => {
-          //   if (p.peerID === payload.id) p.constraints = payload.constraints;
-          // });
           const item = peersRef.current.find((p) => p.peerID === payload.id);
           item.constraints = payload.constraints;
-          // setPeers(peersRef.current);
           item.peer.signal(payload.signal);
         });
 
-        // console.log(stream);
-
+        // When video is turn off by the other user
         socketRef.current.on("user videoOff", (payload) => {
-          // let item = peers.find((p) => p.peerID === payload.id);
           peersRef.current.forEach((p) => {
             if (p.peerID === payload.id) {
               p.constraints = payload.user.constraints;
             }
           });
-          console.log(peersRef);
 
           setPeers(peersRef.current);
-
-          // joinPerrHandler(peersRef.current);
-          // joinPerrHandler(peersRef.current);
-          // onVideoHandler(payload);
-          // if(peerObj){
-          //   peerObj.constraints = payload.user.constraints;
-          // }
         });
 
+        // When video is turn on by the other user
         socketRef.current.on("user videoOn", (payload) => {
           peersRef.current.forEach((p) => {
             if (p.peerID === payload.id) {
               p.constraints = payload.user.constraints;
             }
           });
-          console.log(peersRef);
           onVideoHandler(payload);
         });
 
+        //  When some user left the room
         socketRef.current.on("user left", (id) => {
           const peerObj = peersRef.current.find((p) => p.peerID === id);
           if (peerObj) {
@@ -288,18 +245,6 @@ const Room = (props) => {
           const peers = peersRef.current.filter((p) => p.peerID !== id);
           peersRef.current = peers;
           setPeers(peersRef.current);
-          // onVideoHandler(peers);
-          // setPeers((prev) => {
-          //   console.log(prev);
-          //   const pObj = prev.find((p) => p.peerID === id);
-          //   console.log(pObj);
-          //   // if (pObj) {
-          //   //   pObj.peer.destroy();
-          //   // }
-          //   const newPeer = prev.filter((p) => p.peerID !== id);
-          //   console.log(newPeer);
-          //   return newPeer;
-          // });
         });
       })
       .catch((err) => {
@@ -310,12 +255,11 @@ const Room = (props) => {
     setEnter();
   }, []);
 
-  console.log(peers);
-
   useEffect(() => {
     setPeers(peersRef.current);
   }, []);
 
+  // When the user leaves the meeting
   const leaveMeeting = () => {
     socketRef.current.disconnect();
     userVideo.current.srcObject.getTracks().forEach((track) => {
@@ -325,11 +269,10 @@ const Room = (props) => {
     history.push("/chat");
   };
 
+  // When the user toggles the video
   const toggleVideo = () => {
-    // console.log(userVideo.current.srcObject.getVideoTracks()[0]);
     userVideo.current.srcObject.getVideoTracks()[0].enabled =
       !constraints.video;
-    // console.log(userVideo.current.srcObject.getVideoTracks()[0]);
     socketRef.current.emit("videoOff", {
       id: socketRef.current.id,
       roomID,
@@ -341,18 +284,15 @@ const Room = (props) => {
 
     setConstraints((prev) => ({ ...prev, video: !prev.video }));
   };
+
+  // When the user toggles the audio
   const toggleAudio = () => {
-    // console.log(userVideo.current.srcObject.getVideoTracks()[0]);
     userVideo.current.srcObject.getAudioTracks()[0].enabled =
       !constraints.audio;
-    // console.log(userVideo.current.srcObject.getAudioTracks()[0]);
-
     setConstraints((prev) => ({ ...prev, audio: !prev.audio }));
   };
 
-  // console.log(peers);
-
-  if(isLoading) return <Loading />
+  if (isLoading) return <Loading />;
   return (
     <div>
       {enter === 1 && (
@@ -420,7 +360,9 @@ const Room = (props) => {
         </div>
       )}
       {enter === 0 && (
-        <h1 className="videoCallingStart">LOADINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</h1>
+        <h1 className="videoCallingStart">
+          LOADINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+        </h1>
       )}
       {enter === -1 && <h1 className="videoCallingStart">CANNOT CONNECT</h1>}
     </div>

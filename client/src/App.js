@@ -13,7 +13,7 @@ import {
   useHistory,
 } from "react-router-dom";
 // import CreateRoom from "./components/CreateRoom";
-import Room from "./components/Room";
+import Room from "./components/Video Calling/Room";
 import Chat from "./components/Chatting/Chat";
 import Teams from "./components/Teams/Teams";
 import CreateTeamsPage from "./components/Teams/CreateTeamPage/CreateTeamsPage";
@@ -50,10 +50,12 @@ const Routing = () => {
   const [user, setUser] = useState();
   const [spinner, setSpinner] = useState(true);
 
+  // Loading in the opening the project
   useEffect(() => {
       setTimeout(() => setSpinner(false), 1000);
   }, []);
 
+  // Searching for logged in user
   useEffect(() => {
     const userTemp = JSON.parse(localStorage.getItem("user"));
     setUser(userTemp);
@@ -127,7 +129,6 @@ function App() {
   return (
     <UserContext.Provider value={{ state, dispatch }}>
       <BrowserRouter>
-        {/* <SideNavbar /> */}
         <Routing />
       </BrowserRouter>
     </UserContext.Provider>

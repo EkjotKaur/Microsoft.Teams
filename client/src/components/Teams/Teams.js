@@ -21,15 +21,13 @@ const Teams = (props) => {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("jwt"));
+    // Getting all the teams for the user from the server
     const fetchData = async () => {
       try {
         const res = await chatApi.getTeams(state._id);
         if (!res.data.status) console.log(res.data.message);
         else {
-          console.log(res.data);
           setTeams(res.data.data);
-          // history.push("/teams");
           setIsLoading(false);
         }
       } catch (err) {

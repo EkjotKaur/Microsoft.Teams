@@ -42,13 +42,15 @@
 - ### **Main Feature - Video Calling between two users**
 
   - Two users in contact can connect with each other through video calling facility.
-  - This Video Calling feature is implemented using simple-peer webRTC technolgy and socket.io.
+  - This Video Calling feature is implemented using *simple-peer* webRTC technolgy and *socket.io*.
+
+  !["video call"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/VideoCall.png)
 
 - ### **Second Priority Feature - Chat between two users**
 
   - Real time chat between two users facility.
   - Previous messages are stored in the database and can be accessed afterwards.
-  - This features is implemented using socket.io
+  - This features is implemented using *socket.io*.
 
     <br>
 
