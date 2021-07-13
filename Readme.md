@@ -4,9 +4,9 @@
 
 !["home page"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Home%20Page.png)
 
-  <!-- Project Link: ["link"](link, project link)
-  <br>
-  Demo Video Link:  -->
+Project Link: [teams-microsoft-ms.herokuapp.com/](teams-microsoft-ms.herokuapp.com/)
+<br>
+Demo Video Link: [https://www.youtube.com/watch?v=2KMvn1nJiW8](https://www.youtube.com/watch?v=2KMvn1nJiW8)
 
 <br>
 
@@ -42,7 +42,7 @@
 - ### **Main Feature - Video Calling between two users**
 
   - Two users in contact can connect with each other through video calling facility.
-  - This Video Calling feature is implemented using *simple-peer* webRTC technolgy and *socket.io*.
+  - This Video Calling feature is implemented using _simple-peer_ webRTC technolgy and _socket.io_.
 
   !["video call"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/VideoCall.png)
 
@@ -50,7 +50,7 @@
 
   - Real time chat between two users facility.
   - Previous messages are stored in the database and can be accessed afterwards.
-  - This features is implemented using *socket.io*.
+  - This features is implemented using _socket.io_.
 
     <br>
 
