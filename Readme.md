@@ -4,7 +4,7 @@
 
 !["home page"](https://raw.githubusercontent.com/EkjotKaur/Microsoft.Teams/main/client/src/assets/Screenshots/Home%20Page.png)
 
-Project Link: [teams-microsoft-ms.herokuapp.com/](teams-microsoft-ms.herokuapp.com/)
+Project Link: [teams-microsoft-ms.herokuapp.com/](https://teams-microsoft-ms.herokuapp.com/)
 <br>
 Demo Video Link: [https://www.youtube.com/watch?v=2KMvn1nJiW8](https://www.youtube.com/watch?v=2KMvn1nJiW8)
 
